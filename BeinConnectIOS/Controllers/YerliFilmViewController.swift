@@ -1,0 +1,20 @@
+//
+//  DiziViewController.swift
+//  BeinConnectIOS
+//
+//  Created by Zülal Sarıoğlu on 7.11.2023.
+//
+
+import UIKit
+
+class DiziViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = .blue
+        
+        
+    }
+
+}
