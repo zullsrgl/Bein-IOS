@@ -9,21 +9,39 @@
 /* Begin PBXBuildFile section */
 		BED735762AFA23F40086E649 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735752AFA23F40086E649 /* AppDelegate.swift */; };
 		BED735782AFA23F40086E649 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735772AFA23F40086E649 /* SceneDelegate.swift */; };
-		BED7357A2AFA23F40086E649 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735792AFA23F40086E649 /* ViewController.swift */; };
-		BED7357D2AFA23F40086E649 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BED7357B2AFA23F40086E649 /* Main.storyboard */; };
 		BED7357F2AFA23F50086E649 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BED7357E2AFA23F50086E649 /* Assets.xcassets */; };
 		BED735822AFA23F50086E649 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BED735802AFA23F50086E649 /* LaunchScreen.storyboard */; };
+		BED7358B2AFA24600086E649 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BED7358A2AFA24600086E649 /* SnapKit */; };
+		BED7358D2AFA24600086E649 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = BED7358C2AFA24600086E649 /* SnapKit-Dynamic */; };
+		BED7358F2AFA29130086E649 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED7358E2AFA29130086E649 /* TabBarViewController.swift */; };
+		BED735932AFA2FB60086E649 /* YabanciFilmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735922AFA2FB60086E649 /* YabanciFilmViewController.swift */; };
+		BED735952AFA48EB0086E649 /* YerliFilmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735942AFA48EB0086E649 /* YerliFilmViewController.swift */; };
+		BED735972AFA48FB0086E649 /* BetimlemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735962AFA48FB0086E649 /* BetimlemeViewController.swift */; };
+		BED735A22AFA569C0086E649 /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735A12AFA569C0086E649 /* CollectionViewTableViewCell.swift */; };
+		BED735A52AFABA320086E649 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735A42AFABA320086E649 /* Extensions.swift */; };
+		BED735AB2AFAE3CA0086E649 /* TrendingTitleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735AA2AFAE3CA0086E649 /* TrendingTitleResponse.swift */; };
+		BED735AD2AFAE5270086E649 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735AC2AFAE5270086E649 /* TitleCollectionViewCell.swift */; };
+		BED735B02AFAE7700086E649 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = BED735AF2AFAE7700086E649 /* SDWebImage */; };
+		BED735B22AFAE7700086E649 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BED735B12AFAE7700086E649 /* SDWebImageMapKit */; };
+		BED735B42AFAE7CE0086E649 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735B32AFAE7CE0086E649 /* APICaller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BED735722AFA23F40086E649 /* BeinConnectIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeinConnectIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BED735752AFA23F40086E649 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BED735772AFA23F40086E649 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BED735792AFA23F40086E649 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BED7357C2AFA23F40086E649 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BED7357E2AFA23F50086E649 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BED735812AFA23F50086E649 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BED735832AFA23F50086E649 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BED7358E2AFA29130086E649 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		BED735922AFA2FB60086E649 /* YabanciFilmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YabanciFilmViewController.swift; sourceTree = "<group>"; };
+		BED735942AFA48EB0086E649 /* YerliFilmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YerliFilmViewController.swift; sourceTree = "<group>"; };
+		BED735962AFA48FB0086E649 /* BetimlemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetimlemeViewController.swift; sourceTree = "<group>"; };
+		BED735A12AFA569C0086E649 /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
+		BED735A42AFABA320086E649 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BED735AA2AFAE3CA0086E649 /* TrendingTitleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingTitleResponse.swift; sourceTree = "<group>"; };
+		BED735AC2AFAE5270086E649 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TitleCollectionViewCell.swift; path = BeinConnectIOS/Views/TitleCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		BED735B32AFAE7CE0086E649 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +49,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BED735B02AFAE7700086E649 /* SDWebImage in Frameworks */,
+				BED7358B2AFA24600086E649 /* SnapKit in Frameworks */,
+				BED735B22AFAE7700086E649 /* SDWebImageMapKit in Frameworks */,
+				BED7358D2AFA24600086E649 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,15 +78,70 @@
 		BED735742AFA23F40086E649 /* BeinConnectIOS */ = {
 			isa = PBXGroup;
 			children = (
+				BED735A82AFADECD0086E649 /* Manager */,
+				BED735A32AFABA0C0086E649 /* Resources */,
+				BED735A92AFAE3AA0086E649 /* Models */,
+				BED7359F2AFA564E0086E649 /* Views */,
+				BED735912AFA2F760086E649 /* Controllers */,
+				BED735B52B01F3EA0086E649 /* DetailsController */,
+				BED7358E2AFA29130086E649 /* TabBarViewController.swift */,
 				BED735752AFA23F40086E649 /* AppDelegate.swift */,
 				BED735772AFA23F40086E649 /* SceneDelegate.swift */,
-				BED735792AFA23F40086E649 /* ViewController.swift */,
-				BED7357B2AFA23F40086E649 /* Main.storyboard */,
 				BED7357E2AFA23F50086E649 /* Assets.xcassets */,
 				BED735802AFA23F50086E649 /* LaunchScreen.storyboard */,
 				BED735832AFA23F50086E649 /* Info.plist */,
 			);
 			path = BeinConnectIOS;
+			sourceTree = "<group>";
+		};
+		BED735912AFA2F760086E649 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BED735922AFA2FB60086E649 /* YabanciFilmViewController.swift */,
+				BED735942AFA48EB0086E649 /* YerliFilmViewController.swift */,
+				BED735962AFA48FB0086E649 /* BetimlemeViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BED7359F2AFA564E0086E649 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BED735A12AFA569C0086E649 /* CollectionViewTableViewCell.swift */,
+				BED735AC2AFAE5270086E649 /* TitleCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BED735A32AFABA0C0086E649 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BED735A42AFABA320086E649 /* Extensions.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BED735A82AFADECD0086E649 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				BED735B32AFAE7CE0086E649 /* APICaller.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		BED735A92AFAE3AA0086E649 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BED735AA2AFAE3CA0086E649 /* TrendingTitleResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BED735B52B01F3EA0086E649 /* DetailsController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DetailsController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +160,12 @@
 			dependencies = (
 			);
 			name = BeinConnectIOS;
+			packageProductDependencies = (
+				BED7358A2AFA24600086E649 /* SnapKit */,
+				BED7358C2AFA24600086E649 /* SnapKit-Dynamic */,
+				BED735AF2AFAE7700086E649 /* SDWebImage */,
+				BED735B12AFAE7700086E649 /* SDWebImageMapKit */,
+			);
 			productName = BeinConnectIOS;
 			productReference = BED735722AFA23F40086E649 /* BeinConnectIOS.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +194,10 @@
 				Base,
 			);
 			mainGroup = BED735692AFA23F30086E649;
+			packageReferences = (
+				BED735892AFA24600086E649 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				BED735AE2AFAE7700086E649 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = BED735732AFA23F40086E649 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +214,6 @@
 			files = (
 				BED735822AFA23F50086E649 /* LaunchScreen.storyboard in Resources */,
 				BED7357F2AFA23F50086E649 /* Assets.xcassets in Resources */,
-				BED7357D2AFA23F40086E649 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +224,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BED7357A2AFA23F40086E649 /* ViewController.swift in Sources */,
+				BED7358F2AFA29130086E649 /* TabBarViewController.swift in Sources */,
 				BED735762AFA23F40086E649 /* AppDelegate.swift in Sources */,
+				BED735952AFA48EB0086E649 /* YerliFilmViewController.swift in Sources */,
+				BED735AB2AFAE3CA0086E649 /* TrendingTitleResponse.swift in Sources */,
+				BED735932AFA2FB60086E649 /* YabanciFilmViewController.swift in Sources */,
+				BED735A22AFA569C0086E649 /* CollectionViewTableViewCell.swift in Sources */,
+				BED735972AFA48FB0086E649 /* BetimlemeViewController.swift in Sources */,
+				BED735AD2AFAE5270086E649 /* TitleCollectionViewCell.swift in Sources */,
+				BED735B42AFAE7CE0086E649 /* APICaller.swift in Sources */,
+				BED735A52AFABA320086E649 /* Extensions.swift in Sources */,
 				BED735782AFA23F40086E649 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +241,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		BED7357B2AFA23F40086E649 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BED7357C2AFA23F40086E649 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BED735802AFA23F50086E649 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -297,7 +383,6 @@
 				INFOPLIST_FILE = BeinConnectIOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -325,7 +410,6 @@
 				INFOPLIST_FILE = BeinConnectIOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -363,6 +447,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BED735892AFA24600086E649 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
+		BED735AE2AFAE7700086E649 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.18.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BED7358A2AFA24600086E649 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BED735892AFA24600086E649 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		BED7358C2AFA24600086E649 /* SnapKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BED735892AFA24600086E649 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = "SnapKit-Dynamic";
+		};
+		BED735AF2AFAE7700086E649 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BED735AE2AFAE7700086E649 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		BED735B12AFAE7700086E649 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BED735AE2AFAE7700086E649 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BED7356A2AFA23F30086E649 /* Project object */;
 }

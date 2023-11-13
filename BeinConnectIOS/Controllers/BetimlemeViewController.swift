@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SporViewController: UIViewController {
+class BetimlemeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

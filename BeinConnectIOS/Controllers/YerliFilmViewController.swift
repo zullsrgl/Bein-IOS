@@ -7,14 +7,11 @@
 
 import UIKit
 
-class DiziViewController: UIViewController {
+class YerliFilmViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .blue
-        
-        
+ 
     }
 
 }

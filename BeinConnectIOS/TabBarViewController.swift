@@ -9,33 +9,44 @@ import Foundation
 import UIKit
 
 
+
 class TabBarViewController : UITabBarController{
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
-        let vc1 = UINavigationController(rootViewController: FilmViewController())
-        let vc2 = UINavigationController(rootViewController: DiziViewController())
-        let vc3 = UINavigationController(rootViewController: SporViewController())
-        let vc4 = UINavigationController(rootViewController: CocukViewController())
-        let vc5 = UINavigationController(rootViewController: CanliTvViewController())
+        appNameForTabBar()
+        let vc1 = UINavigationController(rootViewController: YabanciFilmViewController())
+        let vc2 = UINavigationController(rootViewController: YerliFilmViewController())
+        let vc3 = UINavigationController(rootViewController: BetimlemeViewController())
     
-        vc1.tabBarItem.title = "Film"
-        vc2.tabBarItem.title = "Dizi"
-        vc3.tabBarItem.title = "Spor"
-        vc4.tabBarItem.title = "Çocuk"
-        vc5.tabBarItem.title = "Canlı"
         
-        setViewControllers([vc1,vc2,vc3,vc4,vc5], animated: true)
-       
+        vc1.tabBarItem.title = "Yabancı Film"
+        vc2.tabBarItem.title = "Yerli Film"
+        vc3.tabBarItem.title = "Betimleme"
+        setViewControllers([vc1,vc2,vc3], animated: true)
+        
+        let appearance = UITabBarItem.appearance()
+        let attributes = [NSAttributedString.Key.font:UIFont(name: "Arial", size: 16)]
+        appearance.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
+        tabBar.barTintColor = UIColor.black.withAlphaComponent(0.5)
        
     }
     override func viewDidLayoutSubviews() {
-        view.backgroundColor = .red
         let height  = navigationController?.navigationBar.frame.maxY
-        tabBar.frame = CGRect(x: 0, y: height ?? 0, width: tabBar.frame.size.width, height: 150.0)
+        tabBar.frame = CGRect(x: 0, y: height ?? 0, width: tabBar.frame.size.width, height: 110.0)
         super.viewDidLayoutSubviews()
         
         
     }
-   
+    
+    func appNameForTabBar(){
+        
+        let appName =  UILabel(frame: CGRect(origin: .init(x: (view.frame.width/2)-15, y: 56), size: CGSize(width: 30.0, height: 60.0)))
+        appName.textAlignment = .center
+        appName.font = .boldSystemFont(ofSize: 20)
+        appName.text = "FİLM"
+        appName.textColor = .white
+        appName.sizeToFit()
+        self.tabBar.addSubview(appName)
+    }
 }
