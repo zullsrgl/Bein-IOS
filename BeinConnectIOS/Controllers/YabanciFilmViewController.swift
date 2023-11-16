@@ -18,6 +18,8 @@ enum Sections : Int {
     
 }
 
+
+
 class YabanciFilmViewController: UIViewController {
     
     let sectionTitles: [String] = ["Trending Movies","Tranding Tv", "Popular", "Upcoming Movies"]
@@ -40,7 +42,7 @@ class YabanciFilmViewController: UIViewController {
         super.viewDidLoad()
         
         //getDatas()
-        
+        filmFeedTable.register(HeaderUITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderUITableViewHeaderFooterView.identifire)
         filmFeedTable.dataSource = self
         filmFeedTable.delegate = self
         filmFeedTable.frame = view.bounds
@@ -74,7 +76,17 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource 
  //   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
  //       tableView.deselectRow(at: indexPath, animated: true)
  //   }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderUITableViewHeaderFooterView.identifire) as? HeaderUITableViewHeaderFooterView else { return nil }
 
+        headerView.configure(title: sectionTitles[section])
+        return headerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionTitles.count
     }
@@ -97,6 +109,8 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifire, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
+        
+        
         switch indexPath.section{
         case Sections.TrendingMovies.rawValue:
            APICaller.shared.getPopuler{ result in

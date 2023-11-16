@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE7124C62B0335DD00A93ECF /* TumFilmlerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7124C52B0335DD00A93ECF /* TumFilmlerViewController.swift */; };
+		BE7124CC2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7124CB2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift */; };
 		BED735762AFA23F40086E649 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735752AFA23F40086E649 /* AppDelegate.swift */; };
 		BED735782AFA23F40086E649 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735772AFA23F40086E649 /* SceneDelegate.swift */; };
 		BED7357F2AFA23F50086E649 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BED7357E2AFA23F50086E649 /* Assets.xcassets */; };
@@ -27,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BE7124C52B0335DD00A93ECF /* TumFilmlerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TumFilmlerViewController.swift; sourceTree = "<group>"; };
+		BE7124CB2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderUITableViewHeaderFooterView.swift; sourceTree = "<group>"; };
 		BED735722AFA23F40086E649 /* BeinConnectIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeinConnectIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BED735752AFA23F40086E649 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BED735772AFA23F40086E649 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 				BED735922AFA2FB60086E649 /* YabanciFilmViewController.swift */,
 				BED735942AFA48EB0086E649 /* YerliFilmViewController.swift */,
 				BED735962AFA48FB0086E649 /* BetimlemeViewController.swift */,
+				BE7124C52B0335DD00A93ECF /* TumFilmlerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -109,6 +114,7 @@
 			children = (
 				BED735A12AFA569C0086E649 /* CollectionViewTableViewCell.swift */,
 				BED735AC2AFAE5270086E649 /* TitleCollectionViewCell.swift */,
+				BE7124CB2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -233,8 +239,10 @@
 				BED735972AFA48FB0086E649 /* BetimlemeViewController.swift in Sources */,
 				BED735AD2AFAE5270086E649 /* TitleCollectionViewCell.swift in Sources */,
 				BED735B42AFAE7CE0086E649 /* APICaller.swift in Sources */,
+				BE7124C62B0335DD00A93ECF /* TumFilmlerViewController.swift in Sources */,
 				BED735A52AFABA320086E649 /* Extensions.swift in Sources */,
 				BED735782AFA23F40086E649 /* SceneDelegate.swift in Sources */,
+				BE7124CC2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

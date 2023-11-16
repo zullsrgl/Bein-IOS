@@ -46,6 +46,10 @@ class TitleCollectionViewCell: UICollectionViewCell {
      
         
     }
+    private func setupCell() {
+        contentView.backgroundColor = .black
+        layer.cornerRadius = 10
+    }
     public func configure(with model:  Title?){
         
         if model == nil {
