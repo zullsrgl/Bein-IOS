@@ -17,41 +17,38 @@ enum Sections : Int {
     case UpcomingMovies = 3
     
 }
-
-
-
 class YabanciFilmViewController: UIViewController {
-    
     let sectionTitles: [String] = ["Trending Movies","Tranding Tv", "Popular", "Upcoming Movies"]
-    
-    
     private var trendingMovies: [Title] = []
     private let filmFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifire)
         return table
     }()
-    private var categoryTitle : UILabel = {
-        var label = UILabel()
-        label.textColor = .white
-        return label
-    }()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //getDatas()
+
         filmFeedTable.register(HeaderUITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderUITableViewHeaderFooterView.identifire)
         filmFeedTable.dataSource = self
         filmFeedTable.delegate = self
-        filmFeedTable.frame = view.bounds
         filmFeedTable.backgroundColor = .black
        
 
         view.addSubview(filmFeedTable)
         view.backgroundColor = .black
+    
     }
+    
+    override func viewDidLayoutSubviews() {
+        filmFeedTable.snp.makeConstraints{ make in
+            make.top.equalToSuperview().offset(110)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    
     
    // private func getDatas() {
    //     APICaller.shared.getPopuler{ [weak self] result in
@@ -70,16 +67,20 @@ class YabanciFilmViewController: UIViewController {
     
 }
 
-
-extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource {
+extension YabanciFilmViewController : HeaderProtocol {
+    func navigateToDetailScreen() {
+        navigationController?.pushViewController(TumFilmlerViewController(), animated: false)
+    }
+}
+extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
     
  //   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
  //       tableView.deselectRow(at: indexPath, animated: true)
  //   }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderUITableViewHeaderFooterView.identifire) as? HeaderUITableViewHeaderFooterView else { return nil }
-
         headerView.configure(title: sectionTitles[section])
+        headerView.delegate = self //burası
         return headerView
     }
 
@@ -94,16 +95,6 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    
-   // func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-   //     guard let header = view as? UITableViewHeaderFooterView else{return}
-   //     let boldFont = UIFont.boldSystemFont(ofSize: 16.0)
-   //     header.textLabel?.font = boldFont
-   //     header.textLabel?.frame = CGRect(x: header.bounds.origin.x, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
-   //     header.textLabel?.textColor = .white
-   //     header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
-   //     tableView.sectionHeaderTopPadding = 20
-   // }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifire, for: indexPath) as? CollectionViewTableViewCell else {
@@ -178,6 +169,8 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource 
         navigationController?.navigationBar.transform = .init(translationX: 0.0, y: min(0 , -offset))
     }
 }
+
+
 
 
 

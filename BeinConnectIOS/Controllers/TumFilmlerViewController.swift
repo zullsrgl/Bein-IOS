@@ -7,11 +7,9 @@
 
 import UIKit
 
-class TumFilmlerViewController: UIViewController {
- override func viewDidLoad() {
+class TumFilmlerViewController: UIViewController{
+    override func viewDidLoad() {
         super.viewDidLoad()
-      
-     
     }
 }
 
