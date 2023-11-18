@@ -13,7 +13,7 @@ class TitleCollectionViewCell: UICollectionViewCell {
     static let identifire = "TitleCollectionViewCell"
     private var movieNameList :  [Title] = [Title]()
     
-    private let  posterImageView : UIImageView = {
+    let  posterImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -22,7 +22,7 @@ class TitleCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let movieName : UILabel = {
+    let movieName : UILabel = {
         var label = UILabel()
         label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
         label.textColor = .white

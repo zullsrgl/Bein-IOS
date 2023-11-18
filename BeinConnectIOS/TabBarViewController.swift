@@ -9,9 +9,14 @@ import Foundation
 import UIKit
 
 class TabBarViewController : UITabBarController, UITabBarControllerDelegate{
+    
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         appNameForTabBar()
+        
+      
         
         let vc1 = YabanciFilmViewController()
         let vc2 = YerliFilmViewController()
@@ -27,13 +32,11 @@ class TabBarViewController : UITabBarController, UITabBarControllerDelegate{
         let attributes = [NSAttributedString.Key.font:UIFont(name: "Arial", size: 16)]
         appearance.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
         tabBar.barTintColor = UIColor.black.withAlphaComponent(0.5)
-        
+                
     }
+    
   
     override func viewDidLayoutSubviews() {
-        // print("navcontroller \(navigationController)")
-        //navigationController?.pushViewController(TumFilmlerViewController(), animated: false)
-        
         tabBar.frame = CGRect(x: 0, y: 0, width: tabBar.frame.size.width, height: 110.0)
         super.viewDidLayoutSubviews()
          
