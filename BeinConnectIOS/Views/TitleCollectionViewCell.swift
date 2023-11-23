@@ -8,17 +8,15 @@
 import UIKit
 import SDWebImage
 
-class TitleCollectionViewCell: UICollectionViewCell {
-    
+class TitleCollectionViewCell: UICollectionViewCell{
+ 
     static let identifire = "TitleCollectionViewCell"
-    private var movieNameList :  [Title] = [Title]()
     
     let  posterImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         return imageView
     }()
     
@@ -26,7 +24,7 @@ class TitleCollectionViewCell: UICollectionViewCell {
         var label = UILabel()
         label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
         label.textColor = .white
-        //label.text = "Deneme deneme"
+        label.textAlignment = .center
         return label
     }()
     
@@ -43,8 +41,6 @@ class TitleCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         posterImageView.layer.cornerRadius = 16
-     
-        
     }
     private func setupCell() {
         contentView.backgroundColor = .black
@@ -79,8 +75,8 @@ class TitleCollectionViewCell: UICollectionViewCell {
         }
         
        // print("updated: \(model?.original_name ?? model?.original_title)")
-        
         movieName.text = model?.original_name ?? model?.original_title
+
     }
 }
 

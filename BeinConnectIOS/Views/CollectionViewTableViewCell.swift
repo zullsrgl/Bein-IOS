@@ -8,9 +8,7 @@
 import UIKit
 import SDWebImage
 
-
 class CollectionViewTableViewCell: UITableViewCell {
-    
     static let identifire = "CollectionViewTableViewCell"
     private var titleList :  [Title] = [Title]()
     var title: String? {  didSet {categoryTitle.text = title}}
@@ -67,26 +65,16 @@ class CollectionViewTableViewCell: UITableViewCell {
         }
 
   }
-    //MARK: see All ButtonTappefd
-    @objc func seeAllButtonTapped() {
-        print("See all button tapped")
-    
-    }
- 
-    
-   public func configure(with title : [Title]) {
+    public func configure(with title : [Title]) {
+        //DispatchQueue: iş parçacığı havuzunu yönetir ve asenkron çalışmasını sağlar
           self.titleList = title
           DispatchQueue.main.async { [weak self] in
               self?.collectionView.reloadData()
-              
           }
       }
-  
 }
 
 extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return titleList.count
     }
@@ -95,7 +83,6 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifire, for: indexPath) as? TitleCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
         guard let model: Title? = titleList[indexPath.row] else {
             return  UICollectionViewCell()
         }

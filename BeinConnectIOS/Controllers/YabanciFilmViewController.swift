@@ -8,8 +8,6 @@
 import UIKit
 import SnapKit
 
-
-
 enum Sections : Int {
     case TrendingMovies = 0
     case TrandingTv = 1
@@ -17,9 +15,9 @@ enum Sections : Int {
     case UpcomingMovies = 3
     
 }
+
 class YabanciFilmViewController: UIViewController {
     let sectionTitles: [String] = ["Trending Movies","Tranding Tv", "Popular", "Upcoming Movies"]
-    private var trendingMovies: [Title] = []
     private let filmFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifire)
@@ -27,13 +25,10 @@ class YabanciFilmViewController: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-
         filmFeedTable.register(HeaderUITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderUITableViewHeaderFooterView.identifire)
         filmFeedTable.dataSource = self
         filmFeedTable.delegate = self
         filmFeedTable.backgroundColor = .black
-       
-
         view.addSubview(filmFeedTable)
         view.backgroundColor = .black
     
@@ -47,40 +42,38 @@ class YabanciFilmViewController: UIViewController {
             make.bottom.equalToSuperview()
         }
     }
-    
-    
-    
-   // private func getDatas() {
-   //     APICaller.shared.getPopuler{ [weak self] result in
-   //         switch result{
-   //         case .success(let titles):
-   //             DispatchQueue.main.async {
-   //                 self?.trendingMovies = titles
-   //                 self?.filmFeedTable.reloadData()
-   //             }
-   //         case .failure(let error) :
-   //             print(error.localizedDescription)
-   //         }
-   //     }
-   //
-   //   }
-    
+  
+  //private func getDatas() {
+  //    APICaller.shared.getPopuler{ [weak self] result in
+  //        switch result{
+  //        case .success(let titles):
+  //            DispatchQueue.main.async {
+  //                self?.trendingMovies = titles
+  //                self?.filmFeedTable.reloadData()
+  //            }
+  //        case .failure(let error) :
+  //            print(error.localizedDescription)
+  //        }
+  //    }
+  //
+  // }
 }
 
+
 extension YabanciFilmViewController : HeaderProtocol {
-    func navigateToDetailScreen() {
-        navigationController?.pushViewController(TumFilmlerViewController(), animated: false)
+    
+    func navigateToDetailScreen(index: Int) {
+        var viewController = TumFilmlerViewController()
+        viewController.didTapSeeAllButton(as: index)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
     
- //   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
- //       tableView.deselectRow(at: indexPath, animated: true)
- //   }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderUITableViewHeaderFooterView.identifire) as? HeaderUITableViewHeaderFooterView else { return nil }
-        headerView.configure(title: sectionTitles[section])
-        headerView.delegate = self //burası
+        headerView.configure(title: sectionTitles[section], buttonIndex: section)
+        headerView.delegate = self
         return headerView
     }
 
@@ -95,15 +88,13 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifire, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
-        
-        
         switch indexPath.section{
         case Sections.TrendingMovies.rawValue:
+            
            APICaller.shared.getPopuler{ result in
                switch result{
                case .success(let titles):
@@ -112,9 +103,10 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
                    print(error.localizedDescription)
                }
            }
-            cell.configure(with: trendingMovies)
+    
+           //cell.configure(with: trendingMovies)
             cell.title = "Trending Movies"
-
+            
         case Sections.TrandingTv.rawValue:
             APICaller.shared.getTrendingTvs{ result in
                 switch result{
@@ -125,8 +117,6 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
             cell.title = "Trending TV"
-
-
         case Sections.UpcomingMovies.rawValue :
             APICaller.shared.getUpcomingMovies{ result in
                 switch result{
@@ -151,8 +141,6 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
         default:
             return UITableViewCell()
         }
-        
-        
         return cell
     }
     

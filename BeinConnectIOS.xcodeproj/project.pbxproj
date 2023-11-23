@@ -26,6 +26,7 @@
 		BED735B02AFAE7700086E649 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = BED735AF2AFAE7700086E649 /* SDWebImage */; };
 		BED735B22AFAE7700086E649 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BED735B12AFAE7700086E649 /* SDWebImageMapKit */; };
 		BED735B42AFAE7CE0086E649 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735B32AFAE7CE0086E649 /* APICaller.swift */; };
+		BEF97F1D2B0C7D95004AC979 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF97F1C2B0C7D95004AC979 /* DetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		BED735AA2AFAE3CA0086E649 /* TrendingTitleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingTitleResponse.swift; sourceTree = "<group>"; };
 		BED735AC2AFAE5270086E649 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TitleCollectionViewCell.swift; path = BeinConnectIOS/Views/TitleCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		BED735B32AFAE7CE0086E649 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		BEF97F1C2B0C7D95004AC979 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +89,6 @@
 				BED735A92AFAE3AA0086E649 /* Models */,
 				BED7359F2AFA564E0086E649 /* Views */,
 				BED735912AFA2F760086E649 /* Controllers */,
-				BED735B52B01F3EA0086E649 /* DetailsController */,
 				BED7358E2AFA29130086E649 /* TabBarViewController.swift */,
 				BED735752AFA23F40086E649 /* AppDelegate.swift */,
 				BED735772AFA23F40086E649 /* SceneDelegate.swift */,
@@ -105,6 +106,7 @@
 				BED735942AFA48EB0086E649 /* YerliFilmViewController.swift */,
 				BED735962AFA48FB0086E649 /* BetimlemeViewController.swift */,
 				BE7124C52B0335DD00A93ECF /* TumFilmlerViewController.swift */,
+				BEF97F1C2B0C7D95004AC979 /* DetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -141,13 +143,6 @@
 				BED735AA2AFAE3CA0086E649 /* TrendingTitleResponse.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		BED735B52B01F3EA0086E649 /* DetailsController */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DetailsController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +236,7 @@
 				BED735B42AFAE7CE0086E649 /* APICaller.swift in Sources */,
 				BE7124C62B0335DD00A93ECF /* TumFilmlerViewController.swift in Sources */,
 				BED735A52AFABA320086E649 /* Extensions.swift in Sources */,
+				BEF97F1D2B0C7D95004AC979 /* DetailsViewController.swift in Sources */,
 				BED735782AFA23F40086E649 /* SceneDelegate.swift in Sources */,
 				BE7124CC2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift in Sources */,
 			);

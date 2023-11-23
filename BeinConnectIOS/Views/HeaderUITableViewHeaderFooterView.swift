@@ -10,9 +10,10 @@ import MapKit
 
 
 protocol HeaderProtocol{
-    func navigateToDetailScreen()
+    func navigateToDetailScreen(index: Int)
 }
 class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
+    //weak var parentViewController : TumFilmlerViewController?
     var delegate : HeaderProtocol?
     static let identifire = "HeaderUITableViewHeaderFooterView"
     var navigation : UINavigationController?
@@ -25,7 +26,6 @@ class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
         let button = UIButton(type: .system)
         let symbolConfig = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .large)
         let seeAllSymbol = UIImage(systemName: "text.alignright", withConfiguration: symbolConfig)
-        button.addTarget(self, action: #selector(seeAllMovie), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(seeAllSymbol, for: .normal)
         button.isUserInteractionEnabled = true
@@ -33,16 +33,23 @@ class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
         button.tintColor = .white
         return button
     }()
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         commonInit()
     }
-    @objc func seeAllMovie() {
-        delegate?.navigateToDetailScreen()
-    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    @objc func seeAllMovie(_ sender: UIButton) {
+        var tappedIndex = sender.tag
+         print("index path: \(sender.tag)")
+         delegate?.navigateToDetailScreen(index: tappedIndex)
+
+        //parentViewController?.didTapSeeAllButton(as: tappedIndex)
+     }
+    
     private func commonInit() {
         contentView.backgroundColor = .black
         contentView.addSubview(titleLabel)
@@ -57,8 +64,11 @@ class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
             make.centerY.equalToSuperview()
         }
     }
-    func configure(title: String) {
+    func configure(title: String, buttonIndex: Int) {
         titleLabel.text = title
+        seeAllButton.tag = buttonIndex
+        seeAllButton.addTarget(self, action: #selector(seeAllMovie), for: .touchUpInside)
+       
     }
 }
 
