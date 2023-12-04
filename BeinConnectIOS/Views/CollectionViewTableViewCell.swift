@@ -8,12 +8,14 @@
 import UIKit
 import SDWebImage
 
-class CollectionViewTableViewCell: UITableViewCell {
+protocol DetailProtocol : AnyObject {
+    func navigateDetailVc()
+}
+class CollectionViewTableViewCell: UITableViewCell{
+    weak var delegate : DetailProtocol?
     static let identifire = "CollectionViewTableViewCell"
     private var titleList :  [Title] = [Title]()
     var title: String? {  didSet {categoryTitle.text = title}}
-    
-
     
     let collectionView : UICollectionView = {
           let layout = UICollectionViewFlowLayout()
@@ -75,6 +77,12 @@ class CollectionViewTableViewCell: UITableViewCell {
 }
 
 extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("tıklandı \(String(describing: titleList[indexPath.row].original_title ?? titleList[indexPath.row].original_name))")
+            delegate?.navigateDetailVc()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return titleList.count
     }
@@ -87,7 +95,6 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
             return  UICollectionViewCell()
         }
         cell.configure(with: model)
-        
         return cell
     }
 }

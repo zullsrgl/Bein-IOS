@@ -12,6 +12,7 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
 
     private var trendingMovies : [Title] = []
     var  selectedDataType : Int?
+    
     var backButton : UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UINavigationBar.appearance().backIndicatorImage, for: .normal)
@@ -20,6 +21,9 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
         button.setTitleColor(button.tintColor, for: .normal)
         return button
     }()
+    
+ 
+    
    var collectionView : UICollectionView?
     
     override func viewDidLoad() {
@@ -56,6 +60,7 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
             make.top.equalToSuperview().offset(50)
 
         }
+    
     }
 
     
@@ -142,6 +147,7 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
         print("back button click")
         navigationController?.popViewController(animated: true)
     }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return trendingMovies.count
     }
@@ -153,4 +159,5 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
         cell.configure(with: trendingMovies[indexPath.row])
         return cell
     }
+ 
 }

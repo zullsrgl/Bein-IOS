@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+
 enum Sections : Int {
     case TrendingMovies = 0
     case TrandingTv = 1
@@ -60,14 +61,21 @@ class YabanciFilmViewController: UIViewController {
 }
 
 
-extension YabanciFilmViewController : HeaderProtocol {
+extension YabanciFilmViewController : HeaderProtocol , DetailProtocol{
+    func navigateDetailVc() {
+        let detailsVc = DetailsViewController()
+        
+        navigationController?.pushViewController(detailsVc, animated: false)
+    }
+    
     
     func navigateToDetailScreen(index: Int) {
-        var viewController = TumFilmlerViewController()
+        let viewController = TumFilmlerViewController()
         viewController.didTapSeeAllButton(as: index)
-        navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(viewController, animated: false)
     }
 }
+
 extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -92,6 +100,7 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifire, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
+        cell.delegate = self
         switch indexPath.section{
         case Sections.TrendingMovies.rawValue:
             
