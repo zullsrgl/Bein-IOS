@@ -84,8 +84,27 @@ class APICaller {
         }
         task.resume()
     }
-    
-    
+    func getMovieDetails(id: Int? ,completion : @escaping (Result<MovieDetail, Error>) -> Void){
+        guard let movieId = id else {
+            return
+        }
+        guard let url = URL(string: "\(Constants.baseUrl)/3/movie/\(movieId)?api_key=\(Constants.API_KEY)") else {return}
+                
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _ , error in
+            guard let data = data , error == nil else {
+                return
+            }
+            do{
+                let result = try JSONDecoder().decode(MovieDetail.self, from: data)
+                completion(.success(result))
+
+            }catch{
+                completion(.failure(APIError.failedTohetData))
+            }
+        }
+        task.resume()
+    }
+
   
 }
 

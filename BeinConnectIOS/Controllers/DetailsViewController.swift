@@ -9,6 +9,8 @@ import UIKit
 
 class DetailsViewController: UIViewController {
     
+    private var movieDetail: MovieDetail?
+    
     var backButtonDetails : UIButton = {
         var button  = UIButton()
         button.setTitle("Back", for: .normal)
@@ -24,8 +26,9 @@ class DetailsViewController: UIViewController {
     var overviewLabel : UILabel = {
         var label = UILabel()
         label.textColor = .white
-        label.text = "When the walker  family members switch bodies with each other during a rare planetary alignment, their hilarious journey to find their way back to normal will bring them closer together than they ever thought possible"
-        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+     //  label.text = "When the walker  family members switch bodies with each other during a rare planetary alignment, their     hilarious journey to find their way back to normal will bring them closer together than they ever thought possible"
         return label
     }()
     
@@ -50,7 +53,24 @@ class DetailsViewController: UIViewController {
         tableView.register(WatchButonCollectionViewCell.self, forCellReuseIdentifier: WatchButonCollectionViewCell.identifire)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         setConstraints()
+        getMovieDetails()
     }
+    
+    private func getMovieDetails() {
+        
+        APICaller.shared.getMovieDetails(id: 346698) { [weak self] result in
+            switch result{
+                case .success(let movieDetail):
+                DispatchQueue.main.async {
+                    self?.movieDetail = movieDetail
+                    self?.tableView.reloadData()
+                }
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
+    
+     }
 
     func setConstraints(){
         backButtonDetails.snp.makeConstraints { make in
@@ -62,9 +82,11 @@ class DetailsViewController: UIViewController {
             make.right.left.bottom.equalToSuperview()
         }
     }
-    
+   
+    func startAnimation(){
+    }
     @objc func backDetailsToYabanciFilmler(){
-        print("back button click")
+        print(" Details back button click")
         navigationController?.popViewController(animated: true)
     }
 }
@@ -74,8 +96,9 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
             return 300
         }
         else if indexPath.row == 1 {
+
           
-            return 150
+            return 180
         }
         else if indexPath.row == 2 {
             return 150
@@ -93,6 +116,7 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailsCollectionViewCell.identifire, for: indexPath) as! DetailsCollectionViewCell
             cell.selectionStyle = .none
+            cell.movieDetail = self.movieDetail
             return cell
         }
         else if indexPath.row == 1 {
@@ -100,8 +124,8 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             cell.backgroundColor = .black
             cell.textLabel?.textColor = .white
-            cell.textLabel?.text = overviewLabel.text
             cell.textLabel?.numberOfLines = 0
+            cell.textLabel?.text = movieDetail?.overview
             return cell
         }
         else if indexPath.row == 2 {

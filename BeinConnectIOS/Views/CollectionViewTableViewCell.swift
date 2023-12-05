@@ -15,7 +15,9 @@ class CollectionViewTableViewCell: UITableViewCell{
     weak var delegate : DetailProtocol?
     static let identifire = "CollectionViewTableViewCell"
     private var titleList :  [Title] = [Title]()
-    var title: String? {  didSet {categoryTitle.text = title}}
+    var title: String? {
+        didSet {categoryTitle.text = title}
+    }
     
     let collectionView : UICollectionView = {
           let layout = UICollectionViewFlowLayout()
@@ -47,13 +49,11 @@ class CollectionViewTableViewCell: UITableViewCell{
          collectionView.frame = contentView.bounds
       
       }
+    //MARK: Set Up CollectionView
       
     private func setupCollectionView() {
         contentView.addSubview(collectionView)
         contentView.addSubview(categoryTitle)
-        
-
-
         categoryTitle.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.top.equalToSuperview().offset(-24)
@@ -65,7 +65,6 @@ class CollectionViewTableViewCell: UITableViewCell{
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-
   }
     public func configure(with title : [Title]) {
         //DispatchQueue: iş parçacığı havuzunu yönetir ve asenkron çalışmasını sağlar

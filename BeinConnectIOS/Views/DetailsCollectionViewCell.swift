@@ -6,13 +6,13 @@
 //
 
 import UIKit
+import SDWebImage
 
 class DetailsCollectionViewCell: UITableViewCell {
     static let identifierButton = "WatchButtonCell"
     static let identifire = "DetailsCollectionViewCell"
     var movieNameLabel: UILabel = {
         var label = UILabel()
-        label.text = "Film Adı"
         label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
         label.textAlignment = .center
         label.textColor = .white
@@ -25,25 +25,45 @@ class DetailsCollectionViewCell: UITableViewCell {
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         image.backgroundColor = .purple
-        image.layer.cornerRadius = 10
+        image.clipsToBounds = true
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.layer.cornerRadius = 12
         return image
     }()
     var voteCountLabel : UILabel  = {
         var label = UILabel()
-        label.text = "puan : 7.2"
+
+        label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
         label.textColor = .white
         return label
     }()
     
     var releaseDateLabel : UILabel = {
         var label = UILabel()
-        label.text = "Release Date : 2023-11-30"
+        label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
         label.textColor = .white
         return label
     }()
     
  
-    
+    var movieDetail: MovieDetail? {
+        didSet {
+            movieNameLabel.text = movieDetail?.original_title
+            releaseDateLabel.text = movieDetail?.release_date
+            if let vote  = movieDetail?.vote_average {
+                voteCountLabel.text = "\(String(describing: vote))"
+            }
+            let basePosterURL = "https://image.tmdb.org/t/p/w500/"
+
+            if let posterPath = movieDetail?.poster_path,
+               let posterURL = URL(string: basePosterURL + posterPath) {
+                movieImageView.sd_setImage(with: posterURL, placeholderImage: UIImage(named: "placeholder.png"))
+            } else {
+                movieImageView.image = UIImage(named: "placeholder.png")
+            }
+        }
+    }
+        
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -61,18 +81,19 @@ class DetailsCollectionViewCell: UITableViewCell {
     
     func setConstraints() {
         movieNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(20)
-            make.left.equalTo(20)
+            make.top.equalTo(100)
+            make.bottom.equalTo(voteCountLabel.snp.top)
+            make.left.equalTo(movieImageView.snp.right).offset(20)
         }
         movieImageView.snp.makeConstraints { make in
-            make.top.equalTo(movieNameLabel.snp.bottom).offset(10)
+            make.top.equalToSuperview().offset(40)
             make.left.equalTo(20)
             make.height.equalTo(200)
             make.width.equalTo(132)
         }
         voteCountLabel.snp.makeConstraints { make in
             make.left.equalTo(movieImageView.snp.right).offset(20)
-            make.top.equalTo(movieImageView.snp.top).offset(30)
+            make.top.equalTo(movieNameLabel.snp.top).offset(30)
             
         }
         releaseDateLabel.snp.makeConstraints { make in

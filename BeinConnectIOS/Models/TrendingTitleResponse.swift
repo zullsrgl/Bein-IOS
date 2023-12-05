@@ -24,3 +24,4 @@ struct Title : Codable{
     let vote_average: Double
     
 }
+

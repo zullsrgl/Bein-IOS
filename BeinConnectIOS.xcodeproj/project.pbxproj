@@ -10,6 +10,7 @@
 		BE7124C62B0335DD00A93ECF /* TumFilmlerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7124C52B0335DD00A93ECF /* TumFilmlerViewController.swift */; };
 		BE7124CC2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7124CB2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift */; };
 		BEBED2B72B1BE12B00745DA0 /* WatchButonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBED2B62B1BE12B00745DA0 /* WatchButonCollectionViewCell.swift */; };
+		BEBED2B92B1DBD0A00745DA0 /* MovieDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBED2B82B1DBD0A00745DA0 /* MovieDetailResponse.swift */; };
 		BED735762AFA23F40086E649 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735752AFA23F40086E649 /* AppDelegate.swift */; };
 		BED735782AFA23F40086E649 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735772AFA23F40086E649 /* SceneDelegate.swift */; };
 		BED7357F2AFA23F50086E649 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BED7357E2AFA23F50086E649 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		BE7124C52B0335DD00A93ECF /* TumFilmlerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TumFilmlerViewController.swift; sourceTree = "<group>"; };
 		BE7124CB2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderUITableViewHeaderFooterView.swift; sourceTree = "<group>"; };
 		BEBED2B62B1BE12B00745DA0 /* WatchButonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchButonCollectionViewCell.swift; sourceTree = "<group>"; };
+		BEBED2B82B1DBD0A00745DA0 /* MovieDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailResponse.swift; sourceTree = "<group>"; };
 		BED735722AFA23F40086E649 /* BeinConnectIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeinConnectIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BED735752AFA23F40086E649 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BED735772AFA23F40086E649 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				BED735AA2AFAE3CA0086E649 /* TrendingTitleResponse.swift */,
+				BEBED2B82B1DBD0A00745DA0 /* MovieDetailResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				BED735972AFA48FB0086E649 /* BetimlemeViewController.swift in Sources */,
 				BED735AD2AFAE5270086E649 /* TitleCollectionViewCell.swift in Sources */,
 				BED735B42AFAE7CE0086E649 /* APICaller.swift in Sources */,
+				BEBED2B92B1DBD0A00745DA0 /* MovieDetailResponse.swift in Sources */,
 				BE7124C62B0335DD00A93ECF /* TumFilmlerViewController.swift in Sources */,
 				BED735A52AFABA320086E649 /* Extensions.swift in Sources */,
 				BEF97F1D2B0C7D95004AC979 /* DetailsViewController.swift in Sources */,
