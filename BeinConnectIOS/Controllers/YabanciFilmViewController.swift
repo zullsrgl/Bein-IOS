@@ -61,9 +61,9 @@ class YabanciFilmViewController: UIViewController {
 }
 
 
-extension YabanciFilmViewController : HeaderProtocol , DetailProtocol{
-    func navigateDetailVc() {
-        let detailsVc = DetailsViewController()
+extension YabanciFilmViewController : HeaderProtocol , DetailProtocol{  
+    func navigateDetailVc(withID movieID : Int) {
+        let detailsVc = DetailsViewController(movieID: movieID)
         navigationController?.pushViewController(detailsVc, animated: false)
     }
     

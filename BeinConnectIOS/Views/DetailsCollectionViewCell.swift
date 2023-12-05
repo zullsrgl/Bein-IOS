@@ -11,28 +11,28 @@ import SDWebImage
 class DetailsCollectionViewCell: UITableViewCell {
     static let identifierButton = "WatchButtonCell"
     static let identifire = "DetailsCollectionViewCell"
-    var movieNameLabel: UILabel = {
-        var label = UILabel()
-        label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
-        label.textAlignment = .center
-        label.textColor = .white
-        return label
-    }()
-
     
     var movieImageView: UIImageView = {
         var image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.backgroundColor = .purple
+        image.backgroundColor = .systemBackground
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 12
         return image
     }()
+    var movieNameLabel: UILabel = {
+        var label = UILabel()
+        label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
+        label.textAlignment = .left
+        label.textColor = .white
+        return label
+    }()
+
+ 
     var voteCountLabel : UILabel  = {
         var label = UILabel()
-
         label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
         label.textColor = .white
         return label
@@ -74,16 +74,16 @@ class DetailsCollectionViewCell: UITableViewCell {
         contentView.addSubview(releaseDateLabel)
         setConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError()
     }
     
     func setConstraints() {
         movieNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(100)
-            make.bottom.equalTo(voteCountLabel.snp.top)
+            make.bottom.equalTo(voteCountLabel.snp.top).offset(-12)
             make.left.equalTo(movieImageView.snp.right).offset(20)
+            make.right.equalToSuperview().offset(-20)
         }
         movieImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(40)
@@ -92,13 +92,13 @@ class DetailsCollectionViewCell: UITableViewCell {
             make.width.equalTo(132)
         }
         voteCountLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(100)
             make.left.equalTo(movieImageView.snp.right).offset(20)
-            make.top.equalTo(movieNameLabel.snp.top).offset(30)
-            
-        }
+            }
         releaseDateLabel.snp.makeConstraints { make in
             make.top.equalTo(voteCountLabel.snp.top).offset(30)
             make.left.equalTo(movieImageView.snp.right).offset(20)
+           
         }
     }
 }

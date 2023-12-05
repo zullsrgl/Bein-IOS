@@ -49,16 +49,6 @@ class TitleCollectionViewCell: UICollectionViewCell{
         contentView.backgroundColor = .black
         layer.cornerRadius = 10
     }
- 
-  //  private func  setupTapGestureRecognizer(){
-  //      let tap = UITapGestureRecognizer(target: self, action: #selector(tapPosterImageView))
-  //      posterImageView.addGestureRecognizer(tap)
-  //      posterImageView.isUserInteractionEnabled = true
-  //  }
-  //  @objc func tapPosterImageView(){
-  //      print("tap gestureRecognizer' a tıklandı")
-  //      delegate?.navigateDetailVc()
-  //  }
     public func configure(with model:  Title?){
         if model == nil {
             return

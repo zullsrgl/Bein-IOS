@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 
 protocol DetailProtocol : AnyObject {
-    func navigateDetailVc()
+    func navigateDetailVc(withID movieID : Int)
 }
 class CollectionViewTableViewCell: UITableViewCell{
     weak var delegate : DetailProtocol?
@@ -79,7 +79,7 @@ extension CollectionViewTableViewCell : UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("tıklandı \(String(describing: titleList[indexPath.row].original_title ?? titleList[indexPath.row].original_name))")
-            delegate?.navigateDetailVc()
+        delegate?.navigateDetailVc(withID: titleList[indexPath.row].id )
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

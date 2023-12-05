@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import MapKit
 class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    var detailsVc: DetailProtocol?
 
     private var trendingMovies : [Title] = []
     var  selectedDataType : Int?
@@ -34,7 +35,6 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: view.frame.size.width/3.3,
                                  height: view.frame.size.height/4.2)
-        
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView?.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifire)
         collectionView?.delegate = self
@@ -62,8 +62,7 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     
     }
-
-    
+  
     private func getPopulerData(){
         APICaller.shared.getPopuler{ [weak self] result in
                switch result{
@@ -147,7 +146,8 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
         print("back button click")
         navigationController?.popViewController(animated: true)
     }
-
+    
+   
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return trendingMovies.count
     }
@@ -159,5 +159,10 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
         cell.configure(with: trendingMovies[indexPath.row])
         return cell
     }
- 
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       let movieID =  trendingMovies[indexPath.row].id
+        let detailsVc = DetailsViewController(movieID: movieID)
+        navigationController?.pushViewController(detailsVc, animated: false)
+    }
 }

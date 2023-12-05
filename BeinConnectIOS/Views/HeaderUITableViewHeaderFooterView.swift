@@ -13,10 +13,10 @@ protocol HeaderProtocol{
     func navigateToDetailScreen(index: Int)
 }
 class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
-    //weak var parentViewController : TumFilmlerViewController?
     var delegate : HeaderProtocol?
     static let identifire = "HeaderUITableViewHeaderFooterView"
     var navigation : UINavigationController?
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -46,8 +46,6 @@ class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
         var tappedIndex = sender.tag
          print("index path: \(sender.tag)")
          delegate?.navigateToDetailScreen(index: tappedIndex)
-
-        //parentViewController?.didTapSeeAllButton(as: tappedIndex)
      }
     
     private func commonInit() {
@@ -71,6 +69,5 @@ class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
        
     }
 }
-
 
 

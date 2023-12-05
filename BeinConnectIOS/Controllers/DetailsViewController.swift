@@ -8,9 +8,9 @@
 import UIKit
 
 class DetailsViewController: UIViewController {
+    let movieID: Int?
     
     private var movieDetail: MovieDetail?
-    
     var backButtonDetails : UIButton = {
         var button  = UIButton()
         button.setTitle("Back", for: .normal)
@@ -22,17 +22,22 @@ class DetailsViewController: UIViewController {
         
     }()
 
-
+    init(movieID: Int) {
+            self.movieID = movieID
+            super.init(nibName: nil, bundle: nil)
+        }
+    
+    required init?(coder: NSCoder) {
+        fatalError("Gelen id çalışmadı")
+    }
     var overviewLabel : UILabel = {
         var label = UILabel()
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
-
-     //  label.text = "When the walker  family members switch bodies with each other during a rare planetary alignment, their     hilarious journey to find their way back to normal will bring them closer together than they ever thought possible"
         return label
     }()
     
-  
+   
     var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -44,9 +49,11 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(backButtonDetails)
         view.addSubview(tableView)
+        //view.addSubview(overviewLabel)
         view.addSubview(overviewLabel)
         
-       
+        
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(DetailsCollectionViewCell.self, forCellReuseIdentifier: DetailsCollectionViewCell.identifire)
@@ -58,7 +65,7 @@ class DetailsViewController: UIViewController {
     
     private func getMovieDetails() {
         
-        APICaller.shared.getMovieDetails(id: 346698) { [weak self] result in
+        APICaller.shared.getMovieDetails(id: movieID) { [weak self] result in
             switch result{
                 case .success(let movieDetail):
                 DispatchQueue.main.async {
@@ -81,6 +88,7 @@ class DetailsViewController: UIViewController {
             make.top.equalTo(backButtonDetails.snp.bottom)
             make.right.left.bottom.equalToSuperview()
         }
+       
     }
    
     func startAnimation(){
@@ -93,12 +101,9 @@ class DetailsViewController: UIViewController {
 extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 300
-        }
+            return 250        }
         else if indexPath.row == 1 {
-
-          
-            return 180
+            return UITableView.automaticDimension
         }
         else if indexPath.row == 2 {
             return 150
@@ -115,14 +120,16 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailsCollectionViewCell.identifire, for: indexPath) as! DetailsCollectionViewCell
+
             cell.selectionStyle = .none
             cell.movieDetail = self.movieDetail
             return cell
         }
         else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+          
+            cell.backgroundColor  = .black
             cell.selectionStyle = .none
-            cell.backgroundColor = .black
             cell.textLabel?.textColor = .white
             cell.textLabel?.numberOfLines = 0
             cell.textLabel?.text = movieDetail?.overview
@@ -130,8 +137,9 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: WatchButonCollectionViewCell.identifire, for: indexPath) as! WatchButonCollectionViewCell
+            
             cell.selectionStyle = .none
-            cell.backgroundColor = .black
+            cell.backgroundColor = tableView.backgroundColor
             return cell
         }
         else {
