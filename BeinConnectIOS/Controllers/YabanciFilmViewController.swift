@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 
 enum Sections : Int {
@@ -14,54 +15,79 @@ enum Sections : Int {
     case TrandingTv = 1
     case Popular = 2
     case UpcomingMovies = 3
-    
 }
-
-class YabanciFilmViewController: UIViewController {
+class YabanciFilmViewController: UIViewController  {
     let sectionTitles: [String] = ["Trending Movies","Tranding Tv", "Popular", "Upcoming Movies"]
     private let filmFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifire)
         return table
     }()
+    
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+
+    private let numberOfPages = 14
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         filmFeedTable.register(HeaderUITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderUITableViewHeaderFooterView.identifire)
         filmFeedTable.dataSource = self
         filmFeedTable.delegate = self
         filmFeedTable.backgroundColor = .black
+        view.addSubview(scrollView)
         view.addSubview(filmFeedTable)
         view.backgroundColor = .black
-    
+        apiCaller()
     }
-    
     override func viewDidLayoutSubviews() {
+        scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 500)
+
         filmFeedTable.snp.makeConstraints{ make in
-            make.top.equalToSuperview().offset(110)
+            //make.top.equalToSuperview().offset(100)
+            make.top.equalTo(scrollView.snp.bottom)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
-  
-  //private func getDatas() {
-  //    APICaller.shared.getPopuler{ [weak self] result in
-  //        switch result{
-  //        case .success(let titles):
-  //            DispatchQueue.main.async {
-  //                self?.trendingMovies = titles
-  //                self?.filmFeedTable.reloadData()
-  //            }
-  //        case .failure(let error) :
-  //            print(error.localizedDescription)
-  //        }
-  //    }
-  //
-  // }
+    func apiCaller() {
+        APICaller.shared.getUpcomingMovies{ [weak self] result in
+            switch result {
+            case .success(let titles):
+                // Verileri aldık, şimdi görselleri ekrana yerleştirelim
+                DispatchQueue.main.async {
+                    self?.setupScrollView(with: titles)
+                }
+            case .failure(let error):
+                // Hata durumunda buraya düşeriz, hata işleme kodlarını ekleyebilirsiniz
+                print("Hata: \(error)")
+            }
+        }
+    }
+    func setupScrollView(with titles: [Title]) {
+        for (index, title) in titles.enumerated() {
+            if let posterPath = title.poster_path,
+               let posterURL = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)") {
+                let imageView = UIImageView()
+                imageView.kf.setImage(with: posterURL)
+                imageView.frame = CGRect(x: CGFloat(index) * view.frame.size.width, y: 0, width: view.frame.size.width, height: 500)
+                scrollView.addSubview(imageView)
+            }
+        }
+        scrollView.contentSize = CGSize(width: CGFloat(titles.count) * view.frame.size.width, height: 500)
+    }
 }
 
 
-extension YabanciFilmViewController : HeaderProtocol , DetailProtocol{  
+//MARK: Extansion Navigate
+extension YabanciFilmViewController : HeaderProtocol , DetailProtocol{
     func navigateDetailVc(withID movieID : Int) {
         let detailsVc = DetailsViewController(movieID: movieID)
         navigationController?.pushViewController(detailsVc, animated: false)
@@ -74,6 +100,7 @@ extension YabanciFilmViewController : HeaderProtocol , DetailProtocol{
         navigationController?.pushViewController(viewController, animated: false)
     }
 }
+//MARK: Extansion Delegate
 
 extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
     
@@ -111,10 +138,7 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
                    print(error.localizedDescription)
                }
            }
-    
-           //cell.configure(with: trendingMovies)
             cell.title = "Trending Movies"
-            
         case Sections.TrandingTv.rawValue:
             APICaller.shared.getTrendingTvs{ result in
                 switch result{

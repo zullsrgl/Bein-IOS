@@ -67,7 +67,6 @@ class CollectionViewTableViewCell: UITableViewCell{
         }
   }
     public func configure(with title : [Title]) {
-        //DispatchQueue: iş parçacığı havuzunu yönetir ve asenkron çalışmasını sağlar
           self.titleList = title
           DispatchQueue.main.async { [weak self] in
               self?.collectionView.reloadData()

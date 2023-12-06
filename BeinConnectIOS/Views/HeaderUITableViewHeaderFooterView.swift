@@ -15,9 +15,7 @@ protocol HeaderProtocol{
 class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
     var delegate : HeaderProtocol?
     static let identifire = "HeaderUITableViewHeaderFooterView"
-    var navigation : UINavigationController?
-    
-    let titleLabel: UILabel = {
+   let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         return label
@@ -66,7 +64,6 @@ class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
         titleLabel.text = title
         seeAllButton.tag = buttonIndex
         seeAllButton.addTarget(self, action: #selector(seeAllMovie), for: .touchUpInside)
-       
     }
 }
 

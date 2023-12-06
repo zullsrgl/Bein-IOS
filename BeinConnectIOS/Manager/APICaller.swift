@@ -84,6 +84,7 @@ class APICaller {
         }
         task.resume()
     }
+    
     func getMovieDetails(id: Int? ,completion : @escaping (Result<MovieDetail, Error>) -> Void){
         guard let movieId = id else {
             return

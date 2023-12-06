@@ -11,6 +11,7 @@
 		BE7124CC2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7124CB2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift */; };
 		BEBED2B72B1BE12B00745DA0 /* WatchButonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBED2B62B1BE12B00745DA0 /* WatchButonCollectionViewCell.swift */; };
 		BEBED2B92B1DBD0A00745DA0 /* MovieDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBED2B82B1DBD0A00745DA0 /* MovieDetailResponse.swift */; };
+		BEBED2C02B20B38500745DA0 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BEBED2BF2B20B38500745DA0 /* Kingfisher */; };
 		BED735762AFA23F40086E649 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735752AFA23F40086E649 /* AppDelegate.swift */; };
 		BED735782AFA23F40086E649 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735772AFA23F40086E649 /* SceneDelegate.swift */; };
 		BED7357F2AFA23F50086E649 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BED7357E2AFA23F50086E649 /* Assets.xcassets */; };
@@ -65,6 +66,7 @@
 				BED7358B2AFA24600086E649 /* SnapKit in Frameworks */,
 				BED735B22AFAE7700086E649 /* SDWebImageMapKit in Frameworks */,
 				BED7358D2AFA24600086E649 /* SnapKit-Dynamic in Frameworks */,
+				BEBED2C02B20B38500745DA0 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +177,7 @@
 				BED7358C2AFA24600086E649 /* SnapKit-Dynamic */,
 				BED735AF2AFAE7700086E649 /* SDWebImage */,
 				BED735B12AFAE7700086E649 /* SDWebImageMapKit */,
+				BEBED2BF2B20B38500745DA0 /* Kingfisher */,
 			);
 			productName = BeinConnectIOS;
 			productReference = BED735722AFA23F40086E649 /* BeinConnectIOS.app */;
@@ -207,6 +210,7 @@
 			packageReferences = (
 				BED735892AFA24600086E649 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				BED735AE2AFAE7700086E649 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				BEBED2BE2B20B38500745DA0 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = BED735732AFA23F40086E649 /* Products */;
 			projectDirPath = "";
@@ -465,6 +469,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BEBED2BE2B20B38500745DA0 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
 		BED735892AFA24600086E649 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -484,6 +496,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BEBED2BF2B20B38500745DA0 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BEBED2BE2B20B38500745DA0 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		BED7358A2AFA24600086E649 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BED735892AFA24600086E649 /* XCRemoteSwiftPackageReference "SnapKit" */;
