@@ -17,9 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         let tabBarVC = TabBarViewController()
-        let navigationController = UINavigationController(rootViewController: tabBarVC)
-       // navigationController.isNavigationBarHidden = true
-        window?.rootViewController =  navigationController
+        tabBarVC.tabBar.backgroundColor = .black
+        window?.rootViewController =  tabBarVC
         window?.makeKeyAndVisible()
         
     }

@@ -9,64 +9,118 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-
 enum Sections : Int {
     case TrendingMovies = 0
     case TrandingTv = 1
     case Popular = 2
     case UpcomingMovies = 3
 }
-class YabanciFilmViewController: UIViewController  {
+class YabanciFilmViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
     let sectionTitles: [String] = ["Trending Movies","Tranding Tv", "Popular", "Upcoming Movies"]
+    let categoryName : [String] = ["Film" , "Dizi" ,"Çocuk", "Spor","Canlı TV"]
+
+     let categoryCollectionView: UICollectionView = {
+     let layout = UICollectionViewFlowLayout()
+     layout.scrollDirection = .horizontal
+     layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+     let collection = UICollectionView(frame: CGRect(x: 0, y: 0, width: 600, height: 50), collectionViewLayout: layout)
+     collection.register(LabelCollectionViewCell.self, forCellWithReuseIdentifier: LabelCollectionViewCell.identifier)
+     collection.backgroundColor = .clear
+     collection.showsHorizontalScrollIndicator = false
+     return collection
+    }()
     private let filmFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifire)
         return table
     }()
-    
-    
+    //MARK: scroll view
+    private let numberOfPages = 14
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
-
-    private let numberOfPages = 14
+   
     
-    
+    //MARK:  viewdidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         filmFeedTable.register(HeaderUITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderUITableViewHeaderFooterView.identifire)
         filmFeedTable.dataSource = self
         filmFeedTable.delegate = self
+        
+        categoryCollectionView.delegate = self
+        categoryCollectionView.dataSource = self
         filmFeedTable.backgroundColor = .black
-        view.addSubview(scrollView)
+        filmFeedTable.tableHeaderView = scrollView
         view.addSubview(filmFeedTable)
-        view.backgroundColor = .black
+        view.addSubview(categoryCollectionView)
+        getGradientBackGraund()
+        navController()
         apiCaller()
     }
     override func viewDidLayoutSubviews() {
-        scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 500)
-
+        tabBarController?.tabBar.isHidden = false
+        scrollView.frame = CGRect(x: 0, y: view.safeAreaInsets.top + 110, width: view.frame.size.width, height: 500)
+        
         filmFeedTable.snp.makeConstraints{ make in
-            //make.top.equalToSuperview().offset(100)
-            make.top.equalTo(scrollView.snp.bottom)
+            make.top.equalToSuperview()
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        categoryCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(navigationController?.navigationBar.snp.bottom ?? 70)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(50)
+            make.width.equalToSuperview()
+        }
+    }
+    func getGradientBackGraund(){
+        let colorTop = UIColor(red: 20.0 / 255.0, green: 20.0 / 255.0, blue: 20.0 / 255.0, alpha: 1.0).cgColor
+        let colorBottom = UIColor(red: 10.0 / 255.0, green: 10.0 / 255.0, blue: 10.0 / 255.0, alpha: 0.0).cgColor
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = categoryCollectionView.bounds
+        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.locations = [0.0 , 1.0]
+        self.categoryCollectionView.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    //MARK: Collection View
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categoryName.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LabelCollectionViewCell.identifier, for: indexPath) as? LabelCollectionViewCell else { return  UICollectionViewCell() }
+        cell.categoryLabel.text = categoryName[indexPath.row]
+        cell.categoryLabel.tag = indexPath.row
+        
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell =  collectionView.cellForItem(at: indexPath) as? LabelCollectionViewCell
+        print(cell?.categoryLabel.tag)
+    }
+    
+   //MARK: nav Controller Func
+    func navController() {
+        let titleLabel = UILabel()
+        titleLabel.text = "Film"
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 24.0)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.navigationItem.titleView = titleLabel        
     }
     func apiCaller() {
         APICaller.shared.getUpcomingMovies{ [weak self] result in
             switch result {
             case .success(let titles):
-                // Verileri aldık, şimdi görselleri ekrana yerleştirelim
                 DispatchQueue.main.async {
                     self?.setupScrollView(with: titles)
                 }
             case .failure(let error):
-                // Hata durumunda buraya düşeriz, hata işleme kodlarını ekleyebilirsiniz
                 print("Hata: \(error)")
             }
         }
@@ -76,6 +130,11 @@ class YabanciFilmViewController: UIViewController  {
             if let posterPath = title.poster_path,
                let posterURL = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)") {
                 let imageView = UIImageView()
+                imageView.backgroundColor = .black
+                imageView.tag = title.id
+                imageView.isUserInteractionEnabled = true
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toDetails))
+                imageView.addGestureRecognizer(tapGesture)
                 imageView.kf.setImage(with: posterURL)
                 imageView.frame = CGRect(x: CGFloat(index) * view.frame.size.width, y: 0, width: view.frame.size.width, height: 500)
                 scrollView.addSubview(imageView)
@@ -83,27 +142,32 @@ class YabanciFilmViewController: UIViewController  {
         }
         scrollView.contentSize = CGSize(width: CGFloat(titles.count) * view.frame.size.width, height: 500)
     }
+    @objc func toDetails(_ sender: UITapGestureRecognizer){
+        if let tappedImageView = sender.view as? UIImageView{
+            let tappedImageID = tappedImageView.tag
+            navigateDetailVc(withID: tappedImageID)
+            print("Image View'a tıklandı: \(tappedImageID)")
+        }
+    }
 }
-
 
 //MARK: Extansion Navigate
 extension YabanciFilmViewController : HeaderProtocol , DetailProtocol{
     func navigateDetailVc(withID movieID : Int) {
         let detailsVc = DetailsViewController(movieID: movieID)
-        navigationController?.pushViewController(detailsVc, animated: false)
+        navigationController?.pushViewController(detailsVc, animated: true)
     }
     
     
     func navigateToDetailScreen(index: Int) {
         let viewController = TumFilmlerViewController()
         viewController.didTapSeeAllButton(as: index)
-        navigationController?.pushViewController(viewController, animated: false)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 //MARK: Extansion Delegate
 
 extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderUITableViewHeaderFooterView.identifire) as? HeaderUITableViewHeaderFooterView else { return nil }
         headerView.configure(title: sectionTitles[section], buttonIndex: section)
@@ -127,6 +191,7 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
             return UITableViewCell()
         }
         cell.delegate = self
+        //Delegate, belirli  fbir olay olduğunda bir nesnenin başka bir nesneye haber göndermesine olanak tanıyan bir Design Pattern’dır’
         switch indexPath.section{
         case Sections.TrendingMovies.rawValue:
             
@@ -186,7 +251,6 @@ extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let defaultOffset = view.safeAreaInsets.top
         let offset = scrollView.contentOffset.y + defaultOffset
-        navigationController?.navigationBar.transform = .init(translationX: 0.0, y: min(0 , -offset))
     }
 }
 

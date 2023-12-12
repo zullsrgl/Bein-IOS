@@ -13,23 +13,13 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
 
     private var trendingMovies : [Title] = []
     var  selectedDataType : Int?
-    
-    var backButton : UIButton = {
-        let button = UIButton(type: .custom)
-        button.setImage(UINavigationBar.appearance().backIndicatorImage, for: .normal)
-        button.addTarget(self, action: #selector(allMovieToYabanciFilm), for: .touchUpInside)
-        button.setTitle("Back", for: .normal)
-        button.setTitleColor(button.tintColor, for: .normal)
-        return button
-    }()
-    
- 
-    
-   var collectionView : UICollectionView?
+  var collectionView : UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.isNavigationBarHidden = false
+
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -41,7 +31,6 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
         collectionView?.dataSource = self
         collectionView?.backgroundColor = .black
         view.addSubview(collectionView!)
-        view.addSubview(backButton)
         collectionView?.reloadData()
     }
     
@@ -51,16 +40,9 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
         collectionView?.snp.makeConstraints{ make in
             make.left.equalToSuperview().offset(5)
             make.bottom.equalToSuperview().offset(-5)
-            make.top.equalTo(backButton.snp.bottom)
+            make.top.equalToSuperview()
             make.right.equalToSuperview().offset(-5)
         }
-   
-        backButton.snp.makeConstraints{ make in
-            make.left.equalToSuperview().offset(20)
-            make.top.equalToSuperview().offset(50)
-
-        }
-    
     }
   
     private func getPopulerData(){
@@ -141,12 +123,7 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
         collectionView?.reloadData()
         
     }
-    
-    @objc func allMovieToYabanciFilm(){
-        print("back button click")
-        navigationController?.popViewController(animated: true)
-    }
-    
+
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return trendingMovies.count
@@ -163,6 +140,6 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        let movieID =  trendingMovies[indexPath.row].id
         let detailsVc = DetailsViewController(movieID: movieID)
-        navigationController?.pushViewController(detailsVc, animated: false)
+        navigationController?.pushViewController(detailsVc, animated: true)
     }
 }

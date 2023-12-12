@@ -31,7 +31,6 @@ class TitleCollectionViewCell: UICollectionViewCell{
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //setupTapGestureRecognizer()
         contentView.addSubview(posterImageView)
         contentView.addSubview(movieName)
     }

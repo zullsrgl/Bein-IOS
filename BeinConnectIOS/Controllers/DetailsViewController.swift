@@ -11,21 +11,10 @@ class DetailsViewController: UIViewController {
     let movieID: Int?
     
     private var movieDetail: MovieDetail?
-    var backButtonDetails : UIButton = {
-        var button  = UIButton()
-        button.setTitle("Back", for: .normal)
-        button.setTitleColor(button.tintColor, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(backDetailsToYabanciFilmler), for: .touchUpInside)
-        
-        return button
-        
-    }()
-
     init(movieID: Int) {
-            self.movieID = movieID
-            super.init(nibName: nil, bundle: nil)
-        }
+        self.movieID = movieID
+        super.init(nibName: nil, bundle: nil)
+    }
     
     required init?(coder: NSCoder) {
         fatalError("Gelen id çalışmadı")
@@ -37,19 +26,17 @@ class DetailsViewController: UIViewController {
         return label
     }()
     
-   
+    
     var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .black
         return tableView
     }()
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(backButtonDetails)
         view.addSubview(tableView)
-        //view.addSubview(overviewLabel)
         view.addSubview(overviewLabel)
         
         
@@ -64,38 +51,23 @@ class DetailsViewController: UIViewController {
     }
     
     private func getMovieDetails() {
-        
         APICaller.shared.getMovieDetails(id: movieID) { [weak self] result in
             switch result{
-                case .success(let movieDetail):
+            case .success(let movieDetail):
                 DispatchQueue.main.async {
                     self?.movieDetail = movieDetail
                     self?.tableView.reloadData()
                 }
-                case .failure(let error):
-                    print(error.localizedDescription)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
-    
-     }
-
+    }
     func setConstraints(){
-        backButtonDetails.snp.makeConstraints { make in
-            make.top.equalTo(40)
-            make.left.equalTo(20)
-        }
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(backButtonDetails.snp.bottom)
+            make.top.equalToSuperview()
             make.right.left.bottom.equalToSuperview()
         }
-       
-    }
-   
-    func startAnimation(){
-    }
-    @objc func backDetailsToYabanciFilmler(){
-        print(" Details back button click")
-        navigationController?.popViewController(animated: true)
     }
 }
 extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
