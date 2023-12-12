@@ -12,7 +12,7 @@ class TabBarViewController : UITabBarController, UITabBarControllerDelegate{
  override func viewDidLoad() {
         super.viewDidLoad()
         let vc1 = UINavigationController(rootViewController: YabanciFilmViewController())
-        let vc2 = UINavigationController(rootViewController: YerliFilmViewController())
+        let vc2 = UINavigationController(rootViewController: SearchViewController())
         let vc3 = UINavigationController(rootViewController: BetimlemeViewController())
 
         vc1.tabBarItem.image = UIImage(systemName: "house")

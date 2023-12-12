@@ -17,7 +17,7 @@ struct Constants {
 }
 class APICaller {
     static let shared = APICaller()
-
+    
     func getTrendingMovies(completion : @escaping (Result<[Title], Error>) -> Void){
         
         guard let url = URL(string: "\(Constants.baseUrl)/3/trending/movie/day?api_key=\(Constants.API_KEY)") else {return}
@@ -45,7 +45,7 @@ class APICaller {
             do{
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
-
+                
             }catch {
                 completion(.failure(APIError.failedTohetData))
             }
@@ -77,7 +77,7 @@ class APICaller {
             do{
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
-
+                
             }catch{
                 completion(.failure(APIError.failedTohetData))
             }
@@ -90,7 +90,7 @@ class APICaller {
             return
         }
         guard let url = URL(string: "\(Constants.baseUrl)/3/movie/\(movieId)?api_key=\(Constants.API_KEY)") else {return}
-                
+        
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _ , error in
             guard let data = data , error == nil else {
                 return
@@ -98,14 +98,39 @@ class APICaller {
             do{
                 let result = try JSONDecoder().decode(MovieDetail.self, from: data)
                 completion(.success(result))
-
+                
             }catch{
                 completion(.failure(APIError.failedTohetData))
             }
         }
         task.resume()
     }
-
-  
+    
+    
+    func getMovieName(keyWord: String? ,completion : @escaping (Result<[Title], Error>) -> Void){
+        guard let movieName = keyWord else { return}
+        
+        guard let url = URL(string:"\(Constants.baseUrl)/3/search/movie?query=\(movieName)&api_key=\(Constants.API_KEY)") else {return}
+        
+        print("url: \(url)")
+        
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _ , error in
+            print("updated:...")
+            guard let data = data , error == nil else {
+                print("1")
+                return
+            }
+            do{
+                let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
+                print("2")
+                completion(.success(result.results))
+                
+            }catch{
+                print("3")
+                completion(.failure(APIError.failedTohetData))
+            }
+        }
+        task.resume()
+    }
 }
 

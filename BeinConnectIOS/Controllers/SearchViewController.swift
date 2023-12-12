@@ -7,11 +7,12 @@
 
 import UIKit
 
-class YerliFilmViewController: UIViewController{
+class SearchViewController: UIViewController{
+    var searchTimer : Timer?
     
     let tableview: UITableView = {
           let tv = UITableView()
-          tv.backgroundColor = UIColor.white
+        tv.backgroundColor =  .black
           tv.translatesAutoresizingMaskIntoConstraints = false
           return tv
       }()
@@ -19,16 +20,16 @@ class YerliFilmViewController: UIViewController{
     let searchbar : UISearchBar = {
         var search = UISearchBar()
         search.barStyle = .black
-        search.text = "Movie Name"
+        search.accessibilityHint = "Movie Name?"
         return search
     }()
     
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         tableview.delegate = self
         tableview.dataSource = self
         searchbar.delegate = self
-        searchbar.endEditing(false)
         setupTableView()
     }
     
@@ -48,10 +49,10 @@ class YerliFilmViewController: UIViewController{
         }
     
     }
+   
 }
 
-
-extension YerliFilmViewController :  UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+extension SearchViewController :  UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 20
     }
@@ -64,9 +65,16 @@ extension YerliFilmViewController :  UITableViewDelegate, UITableViewDataSource,
         cell.textLabel?.textColor = .white
         return cell
     }
-   func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool { //Cancel
-       searchBar.setShowsCancelButton(true, animated: true)
-       return true
-   }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { //whenever the enter is clicked
+        APICaller.shared.getMovieName(keyWord: searchBar.text ) {  [weak self] result in
+            switch result {
+            case .success(let movieList):
+                print("movie Name : \(movieList)")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
