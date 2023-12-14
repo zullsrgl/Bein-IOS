@@ -11,7 +11,7 @@ import UIKit
 class TabBarViewController : UITabBarController, UITabBarControllerDelegate{
  override func viewDidLoad() {
         super.viewDidLoad()
-        let vc1 = UINavigationController(rootViewController: YabanciFilmViewController())
+        let vc1 = UINavigationController(rootViewController: HomeViewController())
         let vc2 = UINavigationController(rootViewController: SearchViewController())
         let vc3 = UINavigationController(rootViewController: BetimlemeViewController())
 

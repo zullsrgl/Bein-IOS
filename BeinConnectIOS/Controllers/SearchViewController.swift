@@ -8,19 +8,17 @@
 import UIKit
 
 class SearchViewController: UIViewController{
-    var searchTimer : Timer?
-    
+    var movieList: [Title] = []
     let tableview: UITableView = {
-          let tv = UITableView()
+        let tv = UITableView()
         tv.backgroundColor =  .black
-          tv.translatesAutoresizingMaskIntoConstraints = false
-          return tv
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        return tv
       }()
     
     let searchbar : UISearchBar = {
         var search = UISearchBar()
         search.barStyle = .black
-        search.accessibilityHint = "Movie Name?"
         return search
     }()
     
@@ -34,7 +32,7 @@ class SearchViewController: UIViewController{
     }
     
     func setupTableView() {
-        tableview.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifire)
+        tableview.register( SearchViewTableViewCell.self , forCellReuseIdentifier: SearchViewTableViewCell.identifier)
         view.addSubview(tableview)
         view.addSubview(searchbar)
         tableview.snp.makeConstraints { make in
@@ -53,28 +51,48 @@ class SearchViewController: UIViewController{
 }
 
 extension SearchViewController :  UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifire, for: indexPath) as? CollectionViewTableViewCell else {
-            return UITableViewCell()
-        }
-        cell.textLabel?.text = "index numarası: \(indexPath.row)"
-        cell.textLabel?.textColor = .white
-        return cell
-    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { //whenever the enter is clicked
         APICaller.shared.getMovieName(keyWord: searchBar.text ) {  [weak self] result in
             switch result {
             case .success(let movieList):
-                print("movie Name : \(movieList)")
+                DispatchQueue.main.async {
+                    self?.movieList = movieList
+                    self?.tableview.reloadData()
+                }
+                 print("movie Name : \(movieList)")
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
     }
-}
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movieList.count
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selectRow : \(indexPath.row)")
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewTableViewCell.identifier, for: indexPath) as? SearchViewTableViewCell else {
+            return UITableViewCell()
+        }
+        let movie = movieList[indexPath.row]
+        if let imageURL = URL(string: movie.poster_path ?? ""){
+            cell.configure(with: imageURL)
+        }
+        else {
+            print("imageURL error")
+        }
+        cell.selectionStyle = .none
+        cell.movieNameLabel.textColor = .white
+        cell.movieNameLabel.text =  movie.original_title ?? movie.original_name
+        cell.backgroundColor = .black
+        return cell
+    }
+  
+}

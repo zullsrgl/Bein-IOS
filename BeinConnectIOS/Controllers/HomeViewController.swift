@@ -15,7 +15,7 @@ enum Sections : Int {
     case Popular = 2
     case UpcomingMovies = 3
 }
-class YabanciFilmViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
     let sectionTitles: [String] = ["Trending Movies","Tranding Tv", "Popular", "Upcoming Movies"]
     let categoryName : [String] = ["Film" , "Dizi" ,"Çocuk", "Spor","Canlı TV"]
 
@@ -152,7 +152,7 @@ class YabanciFilmViewController: UIViewController, UICollectionViewDelegate, UIC
 }
 
 //MARK: Extansion Navigate
-extension YabanciFilmViewController : HeaderProtocol , DetailProtocol{
+extension HomeViewController : HeaderProtocol , DetailProtocol{
     func navigateDetailVc(withID movieID : Int) {
         let detailsVc = DetailsViewController(movieID: movieID)
         navigationController?.pushViewController(detailsVc, animated: true)
@@ -167,7 +167,7 @@ extension YabanciFilmViewController : HeaderProtocol , DetailProtocol{
 }
 //MARK: Extansion Delegate
 
-extension YabanciFilmViewController: UITableViewDelegate, UITableViewDataSource{
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderUITableViewHeaderFooterView.identifire) as? HeaderUITableViewHeaderFooterView else { return nil }
         headerView.configure(title: sectionTitles[section], buttonIndex: section)
