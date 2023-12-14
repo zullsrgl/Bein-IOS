@@ -41,7 +41,7 @@ class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     @objc func seeAllMovie(_ sender: UIButton) {
-        var tappedIndex = sender.tag
+        let tappedIndex = sender.tag
          print("index path: \(sender.tag)")
          delegate?.navigateToDetailScreen(index: tappedIndex)
      }

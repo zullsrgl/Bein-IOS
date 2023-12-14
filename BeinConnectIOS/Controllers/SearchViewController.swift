@@ -21,8 +21,6 @@ class SearchViewController: UIViewController{
         search.barStyle = .black
         return search
     }()
-    
-  
     override func viewDidLoad() {
         super.viewDidLoad()
         tableview.delegate = self
@@ -30,7 +28,6 @@ class SearchViewController: UIViewController{
         searchbar.delegate = self
         setupTableView()
     }
-    
     func setupTableView() {
         tableview.register( SearchViewTableViewCell.self , forCellReuseIdentifier: SearchViewTableViewCell.identifier)
         view.addSubview(tableview)
@@ -45,11 +42,8 @@ class SearchViewController: UIViewController{
             make.bottom.equalTo(tableview.snp.top)
             make.left.right.equalToSuperview()
         }
-    
     }
-   
 }
-
 extension SearchViewController :  UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { //whenever the enter is clicked
@@ -82,15 +76,8 @@ extension SearchViewController :  UITableViewDelegate, UITableViewDataSource, UI
             return UITableViewCell()
         }
         let movie = movieList[indexPath.row]
-        if let imageURL = URL(string: movie.poster_path ?? ""){
-            cell.configure(with: imageURL)
-        }
-        else {
-            print("imageURL error")
-        }
+        cell.configure(with: movie)
         cell.selectionStyle = .none
-        cell.movieNameLabel.textColor = .white
-        cell.movieNameLabel.text =  movie.original_title ?? movie.original_name
         cell.backgroundColor = .black
         return cell
     }

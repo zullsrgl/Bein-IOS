@@ -72,6 +72,7 @@ class TitleCollectionViewCell: UICollectionViewCell{
         // print("updated: \(model?.original_name ?? model?.original_title)")
         movieName.text = model?.original_name ?? model?.original_title
         
+        
     }
 }
 

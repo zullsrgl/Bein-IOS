@@ -191,7 +191,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             return UITableViewCell()
         }
         cell.delegate = self
-        //Delegate, belirli  fbir olay olduğunda bir nesnenin başka bir nesneye haber göndermesine olanak tanıyan bir Design Pattern’dır’
+        //Delegate, belirli bir olay olduğunda bir nesnenin başka bir nesneye haber göndermesine olanak tanıyan bir Design Pattern’dır’
         switch indexPath.section{
         case Sections.TrendingMovies.rawValue:
             
