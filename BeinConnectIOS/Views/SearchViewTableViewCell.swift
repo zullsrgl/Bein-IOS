@@ -28,7 +28,9 @@ class SearchViewTableViewCell: UITableViewCell {
     
     var watchButon : UIButton = {
         var buton = UIButton()
-        var playSymbol = UIImage(systemName: "play.circle")
+        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)
+        var playSymbol = UIImage(systemName: "play.circle" , withConfiguration: symbolConfig)
+        buton.tintColor = .white
         buton.setImage(playSymbol, for: .normal)
         return buton
     }()
@@ -40,12 +42,22 @@ class SearchViewTableViewCell: UITableViewCell {
         label.textAlignment = .center
         return label
     }()
+    
+    var voteCountLabel : UILabel = {
+        var label = UILabel()
+        label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
+        label.textColor = .white
+        label.textAlignment = .left
+        return label
+    }()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(movieNameLabel)
         contentView.addSubview(movieImage)
         contentView.addSubview(watchButon)
         contentView.addSubview(voteAverageLabel)
+        contentView.addSubview(voteCountLabel)
+        watchButon.addTarget(self, action: #selector(toDetails), for: .touchUpInside)
         setConstraint()
     }
     
@@ -53,6 +65,9 @@ class SearchViewTableViewCell: UITableViewCell {
         fatalError()
     }
     
+    @objc func toDetails(_sender : Int){
+        print("Search View Table View Cell watch buton")
+    }
     
     func configure(with movie : Title){
         
@@ -71,8 +86,10 @@ class SearchViewTableViewCell: UITableViewCell {
         else {
             movieImage.image = UIImage(named: "placeholder_image")
         }
+        
         movieNameLabel.text = movie.original_name ?? movie.original_title
-        voteAverageLabel.text = "\(String(describing: movie.vote_average))"
+        voteAverageLabel.text = "Vote Average: \(String(describing: movie.vote_average))"
+        voteCountLabel.text = "Vote Count: \(String(describing: movie.vote_count))"
         
     }
     func setConstraint(){
@@ -85,8 +102,10 @@ class SearchViewTableViewCell: UITableViewCell {
             
         }
         watchButon.snp.makeConstraints { make in
-            make.left.equalTo(movieImage.snp.right).offset(20)
-            make.top.equalTo(voteAverageLabel.snp.bottom).offset(6)
+            //make.left.equalTo(movieImage.snp.right).offset(20)
+            make.right.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+          //  make.top.equalTo(voteAverageLabel.snp.bottom).offset(6)
        }
         
         movieNameLabel.snp.makeConstraints { make in
@@ -101,5 +120,11 @@ class SearchViewTableViewCell: UITableViewCell {
             make.top.equalTo(movieNameLabel.snp.bottom).offset(10)
             make.left.equalTo(movieImage.snp.right).offset(20)
         }
+        voteCountLabel.snp.makeConstraints { make in
+            make.top.equalTo(voteAverageLabel.snp.bottom).offset(10)
+            make.left.equalTo(movieImage.snp.right).offset(20)
+        }
     }
 }
+
+

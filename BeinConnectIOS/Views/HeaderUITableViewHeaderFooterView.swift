@@ -13,8 +13,8 @@ protocol HeaderProtocol{
     func navigateToDetailScreen(index: Int)
 }
 class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
-    var delegate : HeaderProtocol?
-    static let identifire = "HeaderUITableViewHeaderFooterView"
+   var delegate : HeaderProtocol?
+   static let identifire = "HeaderUITableViewHeaderFooterView"
    let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white

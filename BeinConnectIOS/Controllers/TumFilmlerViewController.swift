@@ -13,7 +13,7 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
 
     private var trendingMovies : [Title] = []
     var  selectedDataType : Int?
-  var collectionView : UICollectionView?
+    var collectionView : UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()

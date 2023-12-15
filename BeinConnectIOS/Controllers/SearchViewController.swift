@@ -8,6 +8,7 @@
 import UIKit
 
 class SearchViewController: UIViewController{
+   
     var movieList: [Title] = []
     let tableview: UITableView = {
         let tv = UITableView()
@@ -64,7 +65,10 @@ extension SearchViewController :  UITableViewDelegate, UITableViewDataSource, UI
         return movieList.count
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selectRow : \(indexPath.row)")
+        let movie = movieList[indexPath.row]  //??
+        let movieId = movie.id
+        navigateDetailVc(withID: movieId)
+        print("Select Index : \(indexPath.row)")
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -75,11 +79,18 @@ extension SearchViewController :  UITableViewDelegate, UITableViewDataSource, UI
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewTableViewCell.identifier, for: indexPath) as? SearchViewTableViewCell else {
             return UITableViewCell()
         }
-        let movie = movieList[indexPath.row]
+        let movie = movieList[indexPath.row]  //??
         cell.configure(with: movie)
         cell.selectionStyle = .none
         cell.backgroundColor = .black
         return cell
     }
   
+}
+
+extension SearchViewController : DetailProtocol {
+    func navigateDetailVc(withID movieID: Int) {
+        let vc = DetailsViewController(movieID: movieID)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

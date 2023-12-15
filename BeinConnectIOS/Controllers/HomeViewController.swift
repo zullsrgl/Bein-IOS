@@ -18,16 +18,16 @@ enum Sections : Int {
 class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
     let sectionTitles: [String] = ["Trending Movies","Tranding Tv", "Popular", "Upcoming Movies"]
     let categoryName : [String] = ["Film" , "Dizi" ,"Çocuk", "Spor","Canlı TV"]
-
-     let categoryCollectionView: UICollectionView = {
-     let layout = UICollectionViewFlowLayout()
-     layout.scrollDirection = .horizontal
-     layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-     let collection = UICollectionView(frame: CGRect(x: 0, y: 0, width: 600, height: 50), collectionViewLayout: layout)
-     collection.register(LabelCollectionViewCell.self, forCellWithReuseIdentifier: LabelCollectionViewCell.identifier)
-     collection.backgroundColor = .clear
-     collection.showsHorizontalScrollIndicator = false
-     return collection
+    
+    let categoryCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        let collection = UICollectionView(frame: CGRect(x: 0, y: 0, width: 600, height: 50), collectionViewLayout: layout)
+        collection.register(LabelCollectionViewCell.self, forCellWithReuseIdentifier: LabelCollectionViewCell.identifier)
+        collection.backgroundColor = .clear
+        collection.showsHorizontalScrollIndicator = false
+        return collection
     }()
     private let filmFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -79,13 +79,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     func getGradientBackGraund(){
-        let colorTop = UIColor(red: 20.0 / 255.0, green: 20.0 / 255.0, blue: 20.0 / 255.0, alpha: 1.0).cgColor
-        let colorBottom = UIColor(red: 10.0 / 255.0, green: 10.0 / 255.0, blue: 10.0 / 255.0, alpha: 0.0).cgColor
+        let colorTop = UIColor(red: 20.0 / 255.0, green: 20.0 / 255.0, blue: 20.0 / 255.0, alpha: 0.90).cgColor
+        let colorBottom = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 0.0).cgColor
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = categoryCollectionView.bounds
         gradientLayer.colors = [colorTop, colorBottom]
         gradientLayer.locations = [0.0 , 1.0]
-        self.categoryCollectionView.layer.insertSublayer(gradientLayer, at: 0)
+        self.categoryCollectionView.layer.insertSublayer(gradientLayer, at: 1)
     }
     
     //MARK: Collection View
@@ -96,12 +96,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LabelCollectionViewCell.identifier, for: indexPath) as? LabelCollectionViewCell else { return  UICollectionViewCell() }
         cell.categoryLabel.text = categoryName[indexPath.row]
         cell.categoryLabel.tag = indexPath.row
-        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell =  collectionView.cellForItem(at: indexPath) as? LabelCollectionViewCell
-        print(cell?.categoryLabel.tag)
+        let viewController = HomeViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+        print(categoryName[indexPath.row])
+        
+        
     }
     
    //MARK: nav Controller Func
@@ -152,7 +155,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 }
 
 //MARK: Extansion Navigate
-extension HomeViewController : HeaderProtocol , DetailProtocol{
+extension HomeViewController : HeaderProtocol , DetailProtocol {
     func navigateDetailVc(withID movieID : Int) {
         let detailsVc = DetailsViewController(movieID: movieID)
         navigationController?.pushViewController(detailsVc, animated: true)
@@ -165,6 +168,7 @@ extension HomeViewController : HeaderProtocol , DetailProtocol{
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
+
 //MARK: Extansion Delegate
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
@@ -253,8 +257,3 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         let offset = scrollView.contentOffset.y + defaultOffset
     }
 }
-
-
-
-
-
