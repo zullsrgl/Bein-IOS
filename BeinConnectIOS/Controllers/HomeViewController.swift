@@ -19,6 +19,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     let sectionTitles: [String] = ["Trending Movies","Tranding Tv", "Popular", "Upcoming Movies"]
     let categoryName : [String] = ["Film" , "Dizi" ,"Çocuk", "Spor","Canlı TV"]
     
+    var selectedCategory: String?
+    let titleLabel = UILabel()
+    
     let categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -60,6 +63,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         getGradientBackGraund()
         navController()
         apiCaller()
+        getDataFromHomeVC()
     }
     override func viewDidLayoutSubviews() {
         tabBarController?.tabBar.isHidden = false
@@ -76,6 +80,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             make.left.right.equalToSuperview()
             make.height.equalTo(50)
             make.width.equalToSuperview()
+        }
+    }
+    //MARK: GET DATA FROM
+    func getDataFromHomeVC(){
+        if let category = selectedCategory {
+            categoryCollectionView.isHidden = true
+            titleLabel.text = category
         }
     }
     func getGradientBackGraund(){
@@ -100,17 +111,19 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell =  collectionView.cellForItem(at: indexPath) as? LabelCollectionViewCell
+        
         let viewController = HomeViewController()
+        if indexPath.row < categoryName.count {
+            viewController.selectedCategory = categoryName[indexPath.row]
+        }
         navigationController?.pushViewController(viewController, animated: true)
         print(categoryName[indexPath.row])
-        
-        
     }
     
    //MARK: nav Controller Func
     func navController() {
-        let titleLabel = UILabel()
-        titleLabel.text = "Film"
+        
+        titleLabel.text = "beiN CONNECT"
         titleLabel.textColor = .white
         titleLabel.font = UIFont.boldSystemFont(ofSize: 24.0)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
