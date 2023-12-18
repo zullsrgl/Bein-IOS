@@ -22,6 +22,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var selectedCategory: String?
     let titleLabel = UILabel()
     
+    let gradientView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     let categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -59,6 +64,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         filmFeedTable.backgroundColor = .black
         filmFeedTable.tableHeaderView = scrollView
         view.addSubview(filmFeedTable)
+        view.addSubview(gradientView)
         view.addSubview(categoryCollectionView)
         getGradientBackGraund()
         navController()
@@ -74,6 +80,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
+        }
+        gradientView.snp.makeConstraints { make in
+            make.top.equalTo(navigationController?.navigationBar.snp.bottom ?? 70)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(50)
+            make.width.equalToSuperview()
         }
         categoryCollectionView.snp.makeConstraints { make in
             make.top.equalTo(navigationController?.navigationBar.snp.bottom ?? 70)
@@ -96,7 +108,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         gradientLayer.frame = categoryCollectionView.bounds
         gradientLayer.colors = [colorTop, colorBottom]
         gradientLayer.locations = [0.0 , 1.0]
-        self.categoryCollectionView.layer.insertSublayer(gradientLayer, at: 1)
+        self.gradientView.layer.insertSublayer(gradientLayer, at: 0)
+        //self.categoryCollectionView.layer.insertSublayer(gradientLayer, at: 1)
     }
     
     //MARK: Collection View
@@ -123,11 +136,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
    //MARK: nav Controller Func
     func navController() {
         
-        titleLabel.text = "beiN CONNECT"
+        titleLabel.text = "beIN CONNECT"
         titleLabel.textColor = .white
         titleLabel.font = UIFont.boldSystemFont(ofSize: 24.0)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.navigationItem.titleView = titleLabel        
+        self.navigationItem.titleView = titleLabel
     }
     func apiCaller() {
         APICaller.shared.getUpcomingMovies{ [weak self] result in

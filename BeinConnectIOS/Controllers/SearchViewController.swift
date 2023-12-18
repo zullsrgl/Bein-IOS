@@ -10,6 +10,7 @@ import UIKit
 class SearchViewController: UIViewController{
    
     var movieList: [Title] = []
+    
     let tableview: UITableView = {
         let tv = UITableView()
         tv.backgroundColor =  .black

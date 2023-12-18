@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         let tabBarVC = TabBarViewController()
         tabBarVC.tabBar.backgroundColor = .black
+        tabBarVC.tabBar.tintColor  = .red
         window?.rootViewController =  tabBarVC
         window?.makeKeyAndVisible()
         

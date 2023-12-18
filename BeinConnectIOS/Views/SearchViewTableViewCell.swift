@@ -102,10 +102,8 @@ class SearchViewTableViewCell: UITableViewCell {
             
         }
         watchButon.snp.makeConstraints { make in
-            //make.left.equalTo(movieImage.snp.right).offset(20)
             make.right.equalToSuperview()
             make.top.bottom.equalToSuperview()
-          //  make.top.equalTo(voteAverageLabel.snp.bottom).offset(6)
        }
         
         movieNameLabel.snp.makeConstraints { make in

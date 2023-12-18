@@ -14,7 +14,6 @@
 		BEBED2C02B20B38500745DA0 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BEBED2BF2B20B38500745DA0 /* Kingfisher */; };
 		BEBED2CE2B26DCB400745DA0 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBED2CD2B26DCB400745DA0 /* LabelCollectionViewCell.swift */; };
 		BEBED2D02B286CC300745DA0 /* SearchViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBED2CF2B286CC300745DA0 /* SearchViewTableViewCell.swift */; };
-		BEBED2D22B2C2A4A00745DA0 /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBED2D12B2C2A4A00745DA0 /* MovieViewController.swift */; };
 		BED735762AFA23F40086E649 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735752AFA23F40086E649 /* AppDelegate.swift */; };
 		BED735782AFA23F40086E649 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735772AFA23F40086E649 /* SceneDelegate.swift */; };
 		BED7357F2AFA23F50086E649 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BED7357E2AFA23F50086E649 /* Assets.xcassets */; };
@@ -24,7 +23,7 @@
 		BED7358F2AFA29130086E649 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED7358E2AFA29130086E649 /* TabBarViewController.swift */; };
 		BED735932AFA2FB60086E649 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735922AFA2FB60086E649 /* HomeViewController.swift */; };
 		BED735952AFA48EB0086E649 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735942AFA48EB0086E649 /* SearchViewController.swift */; };
-		BED735972AFA48FB0086E649 /*  ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735962AFA48FB0086E649 /*  ProfileViewController.swift */; };
+		BED735972AFA48FB0086E649 /* FavoriteMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735962AFA48FB0086E649 /* FavoriteMoviesViewController.swift */; };
 		BED735A22AFA569C0086E649 /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735A12AFA569C0086E649 /* CollectionViewTableViewCell.swift */; };
 		BED735A52AFABA320086E649 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735A42AFABA320086E649 /* Extensions.swift */; };
 		BED735AB2AFAE3CA0086E649 /* TrendingTitleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735AA2AFAE3CA0086E649 /* TrendingTitleResponse.swift */; };
@@ -43,7 +42,6 @@
 		BEBED2B82B1DBD0A00745DA0 /* MovieDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailResponse.swift; sourceTree = "<group>"; };
 		BEBED2CD2B26DCB400745DA0 /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		BEBED2CF2B286CC300745DA0 /* SearchViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewTableViewCell.swift; sourceTree = "<group>"; };
-		BEBED2D12B2C2A4A00745DA0 /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
 		BED735722AFA23F40086E649 /* BeinConnectIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeinConnectIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BED735752AFA23F40086E649 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BED735772AFA23F40086E649 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,7 +51,7 @@
 		BED7358E2AFA29130086E649 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		BED735922AFA2FB60086E649 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BED735942AFA48EB0086E649 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		BED735962AFA48FB0086E649 /*  ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " ProfileViewController.swift"; sourceTree = "<group>"; };
+		BED735962AFA48FB0086E649 /* FavoriteMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewController.swift; sourceTree = "<group>"; };
 		BED735A12AFA569C0086E649 /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
 		BED735A42AFABA320086E649 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BED735AA2AFAE3CA0086E649 /* TrendingTitleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingTitleResponse.swift; sourceTree = "<group>"; };
@@ -118,10 +116,9 @@
 			children = (
 				BED735922AFA2FB60086E649 /* HomeViewController.swift */,
 				BED735942AFA48EB0086E649 /* SearchViewController.swift */,
-				BED735962AFA48FB0086E649 /*  ProfileViewController.swift */,
+				BED735962AFA48FB0086E649 /* FavoriteMoviesViewController.swift */,
 				BE7124C52B0335DD00A93ECF /* TumFilmlerViewController.swift */,
 				BEF97F1C2B0C7D95004AC979 /* DetailsViewController.swift */,
-				BEBED2D12B2C2A4A00745DA0 /* MovieViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -255,10 +252,9 @@
 				BED735AB2AFAE3CA0086E649 /* TrendingTitleResponse.swift in Sources */,
 				BED735932AFA2FB60086E649 /* HomeViewController.swift in Sources */,
 				BED735A22AFA569C0086E649 /* CollectionViewTableViewCell.swift in Sources */,
-				BED735972AFA48FB0086E649 /*  ProfileViewController.swift in Sources */,
+				BED735972AFA48FB0086E649 /* FavoriteMoviesViewController.swift in Sources */,
 				BEBED2D02B286CC300745DA0 /* SearchViewTableViewCell.swift in Sources */,
 				BED735AD2AFAE5270086E649 /* TitleCollectionViewCell.swift in Sources */,
-				BEBED2D22B2C2A4A00745DA0 /* MovieViewController.swift in Sources */,
 				BED735B42AFAE7CE0086E649 /* APICaller.swift in Sources */,
 				BEBED2B92B1DBD0A00745DA0 /* MovieDetailResponse.swift in Sources */,
 				BE7124C62B0335DD00A93ECF /* TumFilmlerViewController.swift in Sources */,
