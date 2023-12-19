@@ -25,7 +25,6 @@ class MovieManager {
             print("Hata: \(error)")
         }
     }
-    
     func getFavoriteMovies() -> [MovieDetail] {
         if let favoritesStringArray = UserDefaults.standard.array(forKey: "favourites") as? [String] {
             var favoritesList: [MovieDetail] = []

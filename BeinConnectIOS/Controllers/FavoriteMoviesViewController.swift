@@ -49,10 +49,23 @@ class FavoriteMoviesViewController: UIViewController {
     }
 }
 
+extension FavoriteMoviesViewController : DetailProtocol {
+    func navigateDetailVc(withID movieID: Int) {
+        let viewController = DetailsViewController(movieID: movieID)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+}
 
 extension FavoriteMoviesViewController : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movieList.count
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = movieList[indexPath.row] 
+        let movieId = movie.id
+        navigateDetailVc(withID: movieId)
+        print("Select Index : \(indexPath.row)")
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -78,3 +91,4 @@ extension FavoriteMoviesViewController : UITableViewDelegate , UITableViewDataSo
         return cell
     }
 }
+

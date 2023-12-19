@@ -88,7 +88,6 @@ extension SearchViewController :  UITableViewDelegate, UITableViewDataSource, UI
     }
   
 }
-
 extension SearchViewController : DetailProtocol {
     func navigateDetailVc(withID movieID: Int) {
         let vc = DetailsViewController(movieID: movieID)
