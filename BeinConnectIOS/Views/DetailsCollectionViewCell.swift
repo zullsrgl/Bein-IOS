@@ -9,8 +9,6 @@ import UIKit
 import SDWebImage
 
 class DetailsCollectionViewCell: UITableViewCell {
-    var savedMovies : [MovieDetail] = []
-    var savedMovieIds: [Int] = []
     static let identifierButton = "WatchButtonCell"
     static let identifire = "DetailsCollectionViewCell"
     
@@ -28,6 +26,7 @@ class DetailsCollectionViewCell: UITableViewCell {
         var label = UILabel()
         label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
         label.textAlignment = .left
+        label.numberOfLines = 0
         label.textColor = .white
         return label
     }()
@@ -52,6 +51,14 @@ class DetailsCollectionViewCell: UITableViewCell {
         button.layer.cornerRadius = 12
         return button
     }()
+    var deleteButton : UIButton = {
+        var button = UIButton()
+        var image = UIImage(systemName: "heart.fill")
+        button.setImage(image, for: .normal)
+        button.layer.cornerRadius = 12
+        return button
+    }()
+    //
     var movieDetail: MovieDetail? {
         didSet {
             movieNameLabel.text = movieDetail?.original_title
@@ -67,6 +74,9 @@ class DetailsCollectionViewCell: UITableViewCell {
             } else {
                 movieImageView.image = UIImage(named: "placeholder.png")
             }
+            
+            saveDataControl()
+        
         }
     }
    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -77,42 +87,58 @@ class DetailsCollectionViewCell: UITableViewCell {
         contentView.addSubview(voteCountLabel)
         contentView.addSubview(releaseDateLabel)
         contentView.addSubview(saveButton)
+        contentView.addSubview(deleteButton)
+       
         saveButton.tintColor = .red
+        deleteButton.tintColor = .red
         saveButton.addTarget(self, action: #selector(saveButonClick), for: .touchUpInside)
+        deleteButton.addTarget(self, action: #selector(deleteButonClick), for: .touchUpInside)
         setConstraints()
     }
 
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
+    //MARK: save
     @objc func saveButonClick() {
-        
-        if let movieDetail = movieDetail {
-            savedMovies.append(movieDetail)
+        guard let movieDetail = movieDetail else {
+            print("MovieDetailBoş")
+            return
         }
-        
-        if let movieId = movieDetail?.id {
-            savedMovieIds.append(movieId)
+
+        MovieManager.shared.saveFavorite(movieDetail: movieDetail)
+        print("Film kaydedildi \(movieDetail)")
+        saveDataControl()
+    }
+    func saveDataControl() {
+        guard let movieDetail = movieDetail else {
+            print("MovieDetail boş.")
+            return
         }
-        print("save movie id: \(savedMovieIds)")
-        print("save button click : \(String(describing: movieDetail))")
-        
-        let jsonEncoder = JSONEncoder()
-        do {
-            let jsonData = try jsonEncoder.encode(movieDetail)
-            let json = String(data: jsonData, encoding: String.Encoding.utf8)
-            if json != nil {print("json: \(json!)")}
-            var favouritesList = (UserDefaults.standard.array(forKey: "favourites") as? [String]) ?? []
-            favouritesList.append(json!)
-            UserDefaults.standard.set(favouritesList, forKey: "favourites")
-        }catch {}
+
+        let favoritesList = MovieManager.shared.getFavoriteMovies()
+        if favoritesList.contains(where: { $0.id == movieDetail.id }) {
+            saveButton.isHidden = true
+            deleteButton.isHidden = false
+        } else {
+            saveButton.isHidden = false
+            deleteButton.isHidden = true
+        }
+    }
+    //MARK: Delete
+    @objc func deleteButonClick() {
+        guard let movieDetail = movieDetail else {
+            return
+        }
+        MovieManager.shared.deleteFavorite(movieDetail: movieDetail)
+        saveDataControl()
     }
     func setConstraints() {
         movieNameLabel.snp.makeConstraints { make in
             make.bottom.equalTo(voteCountLabel.snp.top).offset(-12)
             make.left.equalTo(movieImageView.snp.right).offset(20)
             make.right.equalToSuperview().offset(-20)
+          
         }
         movieImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(40)
@@ -131,6 +157,10 @@ class DetailsCollectionViewCell: UITableViewCell {
         }
         
         saveButton.snp.makeConstraints { make in
+            make.top.equalTo(releaseDateLabel.snp.bottom).offset(20)
+            make.left.equalTo(movieImageView.snp.right).offset(20)
+        }
+        deleteButton.snp.makeConstraints { make in
             make.top.equalTo(releaseDateLabel.snp.bottom).offset(20)
             make.left.equalTo(movieImageView.snp.right).offset(20)
         }

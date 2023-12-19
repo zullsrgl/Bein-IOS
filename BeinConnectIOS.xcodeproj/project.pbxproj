@@ -31,6 +31,7 @@
 		BED735B02AFAE7700086E649 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = BED735AF2AFAE7700086E649 /* SDWebImage */; };
 		BED735B22AFAE7700086E649 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BED735B12AFAE7700086E649 /* SDWebImageMapKit */; };
 		BED735B42AFAE7CE0086E649 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED735B32AFAE7CE0086E649 /* APICaller.swift */; };
+		BEDB75CE2B3169F10087A68A /* UserFavorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDB75CD2B3169F10087A68A /* UserFavorite.swift */; };
 		BEF97F1D2B0C7D95004AC979 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF97F1C2B0C7D95004AC979 /* DetailsViewController.swift */; };
 		BEF97F1F2B10BA21004AC979 /* DetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF97F1E2B10BA21004AC979 /* DetailsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		BED735AA2AFAE3CA0086E649 /* TrendingTitleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingTitleResponse.swift; sourceTree = "<group>"; };
 		BED735AC2AFAE5270086E649 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TitleCollectionViewCell.swift; path = BeinConnectIOS/Views/TitleCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		BED735B32AFAE7CE0086E649 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		BEDB75CD2B3169F10087A68A /* UserFavorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFavorite.swift; sourceTree = "<group>"; };
 		BEF97F1C2B0C7D95004AC979 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		BEF97F1E2B10BA21004AC979 /* DetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				BED735B32AFAE7CE0086E649 /* APICaller.swift */,
+				BEDB75CD2B3169F10087A68A /* UserFavorite.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				BE7124C62B0335DD00A93ECF /* TumFilmlerViewController.swift in Sources */,
 				BED735A52AFABA320086E649 /* Extensions.swift in Sources */,
 				BEF97F1D2B0C7D95004AC979 /* DetailsViewController.swift in Sources */,
+				BEDB75CE2B3169F10087A68A /* UserFavorite.swift in Sources */,
 				BED735782AFA23F40086E649 /* SceneDelegate.swift in Sources */,
 				BE7124CC2B03893400A93ECF /* HeaderUITableViewHeaderFooterView.swift in Sources */,
 				BEBED2B72B1BE12B00745DA0 /* WatchButonCollectionViewCell.swift in Sources */,

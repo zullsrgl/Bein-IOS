@@ -35,26 +35,10 @@ class FavoriteMoviesViewController: UIViewController {
     
     
     func updateJson() {
-           if let favouritesStringArray = UserDefaults.standard.array(forKey: "favourites") as? [String] {
-               if let favouritesDataArray = favouritesStringArray.map({ $0.data(using: .utf8) }) as? [Data] {
-                   var favouritesList: [MovieDetail] = []
-                   for data in favouritesDataArray {
-                       do {
-                           let decoder = JSONDecoder()
-                           let movie = try decoder.decode(MovieDetail.self, from: data)
-                           favouritesList.append(movie)
-                       } catch {
-                           print("Hata oluştu: \(error.localizedDescription)")
-                       }
-                   }
-                   movieList = favouritesList
-                   favoriteTableView.reloadData()
-               } else {
-                   print("String dizisini Data dizisine çevirme hatası.")
-               }
-           } else {
-               print("Favoriler bulunamadı.")
-           }
+        let favorites = MovieManager.shared.getFavoriteMovies()
+        movieList = favorites
+        favoriteTableView.reloadData()
+        
        }
 
     func constraint(){

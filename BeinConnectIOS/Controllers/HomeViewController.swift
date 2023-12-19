@@ -138,7 +138,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         titleLabel.text = "beIN CONNECT"
         titleLabel.textColor = .white
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 24.0)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.navigationItem.titleView = titleLabel
     }
