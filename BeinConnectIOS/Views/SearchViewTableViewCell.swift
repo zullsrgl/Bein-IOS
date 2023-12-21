@@ -103,7 +103,7 @@ class SearchViewTableViewCell: UITableViewCell {
             
         }
         watchButon.snp.makeConstraints { make in
-            make.right.equalToSuperview()
+            make.right.equalToSuperview().offset(-16)
             make.top.bottom.equalToSuperview()
        }
         

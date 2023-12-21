@@ -79,6 +79,7 @@ class DetailsCollectionViewCell: UITableViewCell {
         
         }
     }
+    //MARK: INIT
    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .black
@@ -99,23 +100,18 @@ class DetailsCollectionViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError()
     }
-    //MARK: save
+    //MARK: SAVE
     @objc func saveButonClick() {
         guard let movieDetail = movieDetail else {
-            print("MovieDetailBoş")
+            print("Film kayıtlı")
             return
         }
-
         MovieManager.shared.saveFavorite(movieDetail: movieDetail)
         print("Film kaydedildi \(movieDetail)")
         saveDataControl()
     }
     func saveDataControl() {
-        guard let movieDetail = movieDetail else {
-            print("MovieDetail boş.")
-            return
-        }
-
+        guard let movieDetail = movieDetail else {return}
         let favoritesList = MovieManager.shared.getFavoriteMovies()
         if favoritesList.contains(where: { $0.id == movieDetail.id }) {
             saveButton.isHidden = true

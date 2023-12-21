@@ -10,6 +10,8 @@ import Kingfisher
 
 class FavoriteMoviesViewController: UIViewController {
     var movieList : [MovieDetail] = []
+    let favLabel = UILabel()
+
     var favoriteTableView : UITableView = {
         var table = UITableView()
         table.backgroundColor =  .black
@@ -24,6 +26,7 @@ class FavoriteMoviesViewController: UIViewController {
         favoriteTableView.delegate = self
         favoriteTableView.dataSource = self
         view.addSubview(favoriteTableView)
+        favorite()
         constraint()
         
     }
@@ -33,6 +36,13 @@ class FavoriteMoviesViewController: UIViewController {
         
     }
     
+    func favorite (){
+        favLabel.text = "FAVORİLER"
+        favLabel.textColor = .white
+        favLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        favLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.navigationItem.titleView = favLabel
+    }
     
     func updateJson() {
         let favorites = MovieManager.shared.getFavoriteMovies()

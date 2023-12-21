@@ -27,8 +27,6 @@ class APICaller {
             do{
                 let result = try JSONDecoder().decode(TrendingTitleResponse.self, from: data)
                 completion(.success(result.results))
-                //completion(.success(result.results))
-                
             }catch{
                 completion(.failure(APIError.failedTohetData))
             }

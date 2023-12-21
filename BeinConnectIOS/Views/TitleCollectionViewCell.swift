@@ -27,8 +27,6 @@ class TitleCollectionViewCell: UICollectionViewCell{
         label.textAlignment = .center
         return label
     }()
-    
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(posterImageView)

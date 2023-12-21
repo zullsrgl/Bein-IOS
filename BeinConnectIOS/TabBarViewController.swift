@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 
-class TabBarViewController : UITabBarController, UITabBarControllerDelegate{
+class TabBarViewController : UITabBarController{
  override func viewDidLoad() {
         super.viewDidLoad()
+     
         let vc1 = UINavigationController(rootViewController: HomeViewController())
         let vc2 = UINavigationController(rootViewController: SearchViewController())
         let vc3 = UINavigationController(rootViewController: FavoriteMoviesViewController())
@@ -24,17 +25,18 @@ class TabBarViewController : UITabBarController, UITabBarControllerDelegate{
         vc3.tabBarItem.title = "Favoriler"
 
      
-        setViewControllers([vc1,vc2,vc3], animated: false)
+        setViewControllers([vc1,vc2,vc3], animated: true)
                 
     let tabBarItem = UITabBarItem.appearance()
     let attributes = [NSAttributedString.Key.font:UIFont(name: "Arial", size: 16)]
-    tabBarItem.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
+     tabBarItem.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
     tabBar.barTintColor = UIColor.black.withAlphaComponent(0.0)
       
      
      let navigationViewController = UINavigationController()
      let appearance = UINavigationBarAppearance()
      appearance.backgroundColor = .black
+     
      UINavigationBar.appearance().standardAppearance = appearance
      UINavigationBar.appearance().compactAppearance = appearance
      UINavigationBar.appearance().scrollEdgeAppearance = appearance

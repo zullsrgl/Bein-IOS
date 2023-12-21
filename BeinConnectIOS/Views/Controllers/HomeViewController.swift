@@ -14,20 +14,16 @@ enum Sections : Int {
     case TrandingTv = 1
     case UpcomingMovies = 2
     case Popular = 3
-    
 }
 class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
-    let sectionTitles: [String] = ["Trending Movies","Tranding Tv", "Popular", "Upcoming Movies"]
+    let sectionTitles: [String] = ["Trend Filmler","Trand Diziler", "Popülerler", "Yakında Gelecekler"]
     let categoryName : [String] = ["Film" , "Dizi" ,"Çocuk", "Spor","Canlı TV"]
-    
     var selectedCategory: String?
     let titleLabel = UILabel()
-    
     let gradientView: UIView = {
         let view = UIView()
         return view
     }()
-    
     let categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -51,8 +47,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
-   
     
+
     //MARK:  viewdidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,7 +108,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         gradientLayer.locations = [0.0 , 1.0]
         self.gradientView.layer.insertSublayer(gradientLayer, at: 0)
     }
-    
     //MARK: Collection View
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categoryName.count
@@ -120,7 +115,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LabelCollectionViewCell.identifier, for: indexPath) as? LabelCollectionViewCell else { return  UICollectionViewCell() }
         cell.categoryLabel.text = categoryName[indexPath.row]
-        cell.categoryLabel.tag = indexPath.row
+
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -133,7 +128,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         navigationController?.pushViewController(viewController, animated: true)
         print(categoryName[indexPath.row])
     }
-    
    //MARK: nav Controller Func
     func navController() {
         
@@ -176,23 +170,19 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if let tappedImageView = sender.view as? UIImageView{
             let tappedImageID = tappedImageView.tag
             navigateDetailVc(withID: tappedImageID)
-            
+        
             print("Image View'a tıklandı: \(tappedImageID)")
         }
     }
 }
-
 //MARK: Extansion Navigate
 extension HomeViewController : HeaderProtocol , DetailProtocol {
     func navigateDetailVc(withID movieID : Int) {
         let detailsVc = DetailsViewController(movieID: movieID)
-        
         navigationController?.pushViewController(detailsVc, animated: true)
     }
-    
-    
     func navigateToDetailScreen(index: Int) {
-        let viewController = TumFilmlerViewController()
+        let viewController = AllMovieViewController()
         viewController.didTapSeeAllButton(as: index)
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -281,6 +271,5 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let defaultOffset = view.safeAreaInsets.top
-        let offset = scrollView.contentOffset.y + defaultOffset
     }
 }

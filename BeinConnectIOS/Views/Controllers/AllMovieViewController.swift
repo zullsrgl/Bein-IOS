@@ -8,30 +8,42 @@
 import UIKit
 import SnapKit
 import MapKit
-class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+
+
+class AllMovieViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var detailsVc: DetailProtocol?
 
     private var trendingMovies : [Title] = []
     var  selectedDataType : Int?
     var collectionView : UICollectionView?
-    
+    let titleName = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.isNavigationBarHidden = false
-
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: view.frame.size.width/3.3,
                                  height: view.frame.size.height/4.2)
+        
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView?.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifire)
         collectionView?.delegate = self
         collectionView?.dataSource = self
+      
         collectionView?.backgroundColor = .black
         view.addSubview(collectionView!)
+        nav()
         collectionView?.reloadData()
+    }
+    
+    func nav (){
+        titleName.textColor = .white
+        titleName.font = UIFont.boldSystemFont(ofSize: 20.0)
+        titleName.translatesAutoresizingMaskIntoConstraints = false
+        self.navigationItem.titleView = titleName
     }
     
     override func viewDidLayoutSubviews() {
@@ -106,16 +118,22 @@ class TumFilmlerViewController: UIViewController, UICollectionViewDelegate, UICo
         print("tapped index \(index)")
         selectedDataType = index
         if index == 0 {
+            titleName.text = "Trend Filmler"
+            //titleName.text =
             getPopulerData()
         }
         else if index == 1 {
+            titleName.text = "Trand Diziler"
+            
             getTrendingTvsData()
         }
         else if index == 2 {
+            titleName.text = "Popülerler"
             getTrendingsMoviesData()
         }
         else if index == 3 {
             getUpcomingMoviesData()
+            titleName.text = "Yakında Gelecekler"
         }
         else {
             print("error")

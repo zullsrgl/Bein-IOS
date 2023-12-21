@@ -8,6 +8,12 @@
 import UIKit
 import MapKit
 
+enum CategorySections: Int {
+    case TrendingMovies = 0
+    case TrandingTv = 1
+    case UpcomingMovies = 2
+    case Popular = 3
+}
 
 protocol HeaderProtocol{
     func navigateToDetailScreen(index: Int)
@@ -37,6 +43,7 @@ class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
         commonInit()
     }
     
+   
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -50,6 +57,7 @@ class HeaderUITableViewHeaderFooterView: UITableViewHeaderFooterView {
         contentView.backgroundColor = .black
         contentView.addSubview(titleLabel)
         contentView.addSubview(seeAllButton)
+        
         
         titleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
