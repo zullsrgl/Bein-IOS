@@ -22,6 +22,7 @@ class TabBarViewController : UITabBarController, UITabBarControllerDelegate{
         vc1.tabBarItem.title = "Filmler"
         vc2.tabBarItem.title = "Ara"
         vc3.tabBarItem.title = "Favoriler"
+
      
         setViewControllers([vc1,vc2,vc3], animated: false)
                 
@@ -32,7 +33,6 @@ class TabBarViewController : UITabBarController, UITabBarControllerDelegate{
       
      
      let navigationViewController = UINavigationController()
-     navigationViewController.navigationBar.backgroundColor = .cyan
      let appearance = UINavigationBarAppearance()
      appearance.backgroundColor = .black
      UINavigationBar.appearance().standardAppearance = appearance

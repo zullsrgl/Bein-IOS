@@ -12,8 +12,9 @@ import Kingfisher
 enum Sections : Int {
     case TrendingMovies = 0
     case TrandingTv = 1
-    case Popular = 2
-    case UpcomingMovies = 3
+    case UpcomingMovies = 2
+    case Popular = 3
+    
 }
 class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
     let sectionTitles: [String] = ["Trending Movies","Tranding Tv", "Popular", "Upcoming Movies"]
@@ -72,6 +73,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         getDataFromHomeVC()
     }
     override func viewDidLayoutSubviews() {
+        filmFeedTable.reloadData()
         tabBarController?.tabBar.isHidden = false
         scrollView.frame = CGRect(x: 0, y: view.safeAreaInsets.top + 110, width: view.frame.size.width, height: 500)
         
@@ -109,7 +111,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         gradientLayer.colors = [colorTop, colorBottom]
         gradientLayer.locations = [0.0 , 1.0]
         self.gradientView.layer.insertSublayer(gradientLayer, at: 0)
-        //self.categoryCollectionView.layer.insertSublayer(gradientLayer, at: 1)
     }
     
     //MARK: Collection View
@@ -138,7 +139,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         titleLabel.text = "beIN CONNECT"
         titleLabel.textColor = .white
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.navigationItem.titleView = titleLabel
     }
@@ -175,6 +176,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if let tappedImageView = sender.view as? UIImageView{
             let tappedImageID = tappedImageView.tag
             navigateDetailVc(withID: tappedImageID)
+            
             print("Image View'a tıklandı: \(tappedImageID)")
         }
     }
@@ -184,6 +186,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 extension HomeViewController : HeaderProtocol , DetailProtocol {
     func navigateDetailVc(withID movieID : Int) {
         let detailsVc = DetailsViewController(movieID: movieID)
+        
         navigationController?.pushViewController(detailsVc, animated: true)
     }
     
@@ -221,10 +224,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             return UITableViewCell()
         }
         cell.delegate = self
-        //Delegate, belirli bir olay olduğunda bir nesnenin başka bir nesneye haber göndermesine olanak tanıyan bir Design Pattern’dır’
         switch indexPath.section{
         case Sections.TrendingMovies.rawValue:
-            
            APICaller.shared.getPopuler{ result in
                switch result{
                case .success(let titles):

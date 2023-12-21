@@ -9,7 +9,6 @@ import UIKit
 
 class WatchButonCollectionViewCell: UITableViewCell {
     static let identifire = "buton"
-    
     var watchButon : UIButton = {
         var buton = UIButton()
         buton.setTitle("İzle", for: .normal)
@@ -22,7 +21,6 @@ class WatchButonCollectionViewCell: UITableViewCell {
         
         return buton
     }()
-    
     var fragmanButon : UIButton = {
         var buton = UIButton()
         buton.frame = CGRect(x: 20, y: 20, width: 100, height: 40)
@@ -33,17 +31,10 @@ class WatchButonCollectionViewCell: UITableViewCell {
         buton.layer.borderWidth = 1.0
         buton.layer.borderColor = UIColor.white.cgColor
         buton.translatesAutoresizingMaskIntoConstraints = false
-        
         return buton
     }()
-    @objc func watchButonClick() {
-        
-        print("watch buton click")
-    }
-    
-    @objc func fragmanButonClick(){
-        print("fragman buton click")
-    }
+    @objc func watchButonClick() {print("watch buton click")}
+    @objc func fragmanButonClick(){print("fragman buton click")}
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(watchButon)
@@ -55,7 +46,6 @@ class WatchButonCollectionViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     func setConstrainttoWatchButon(){
         watchButon.snp.makeConstraints { make in
             make.top.equalTo(20)
@@ -67,6 +57,4 @@ class WatchButonCollectionViewCell: UITableViewCell {
             make.left.right.equalToSuperview()
         }
     }
-    
-    
 }

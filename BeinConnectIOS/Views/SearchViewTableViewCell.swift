@@ -57,6 +57,7 @@ class SearchViewTableViewCell: UITableViewCell {
         contentView.addSubview(watchButon)
         contentView.addSubview(voteAverageLabel)
         contentView.addSubview(voteCountLabel)
+        movieNameLabel.numberOfLines = 0
         watchButon.addTarget(self, action: #selector(toDetails), for: .touchUpInside)
         setConstraint()
     }
@@ -109,9 +110,7 @@ class SearchViewTableViewCell: UITableViewCell {
         movieNameLabel.snp.makeConstraints { make in
             make.top.equalTo(movieImage.snp.top).offset(32)
             make.left.equalTo(movieImage.snp.right).offset(20)
-            make.width.equalTo(contentView.frame.width-20)
-           
-            
+            make.right.equalToSuperview()
         }
         
         voteAverageLabel.snp.makeConstraints { make in

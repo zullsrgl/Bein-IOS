@@ -14,7 +14,7 @@ class LabelCollectionViewCell: UICollectionViewCell {
     var categoryLabel : UILabel = {
         var label = UILabel()
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 20.0)
+        label.font = UIFont.boldSystemFont(ofSize: 24.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isUserInteractionEnabled = true
         return label
