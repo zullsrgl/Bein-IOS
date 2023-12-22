@@ -137,18 +137,21 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.navigationItem.titleView = titleLabel
     }
-    func apiCaller() {
-        APICaller.shared.getUpcomingMovies{ [weak self] result in
-            switch result {
-            case .success(let titles):
-                DispatchQueue.main.async {
-                    self?.setupScrollView(with: titles)
-                }
-            case .failure(let error):
-                print("Hata: \(error)")
-            }
-        }
-    }
+ func apiCaller() {
+     APICaller.shared.getTrendingMovies{ [weak self] result in
+         switch result {
+         case .success(let titles):
+             DispatchQueue.main.async {
+                 self?.setupScrollView(with: titles)
+
+             }
+         case .failure(let error):
+             print("Hata: \(error)")
+
+         }
+     }
+ }
+
     func setupScrollView(with titles: [Title]) {
         for (index, title) in titles.enumerated() {
             if let posterPath = title.poster_path,
@@ -216,14 +219,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.delegate = self
         switch indexPath.section{
         case Sections.TrendingMovies.rawValue:
-           APICaller.shared.getPopuler{ result in
-               switch result{
-               case .success(let titles):
-                   cell.configure(with: titles)
-               case .failure(let error) :
-                   print(error.localizedDescription)
-               }
-           }
+        APICaller.shared.getPopuler{ result in
+            switch result{
+            case .success(let titles):
+                cell.configure(with: titles)
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
             cell.title = "Trending Movies"
         case Sections.TrandingTv.rawValue:
             APICaller.shared.getTrendingTvs{ result in

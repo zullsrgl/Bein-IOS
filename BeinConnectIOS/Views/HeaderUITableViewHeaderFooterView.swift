@@ -7,14 +7,6 @@
 
 import UIKit
 import MapKit
-
-enum CategorySections: Int {
-    case TrendingMovies = 0
-    case TrandingTv = 1
-    case UpcomingMovies = 2
-    case Popular = 3
-}
-
 protocol HeaderProtocol{
     func navigateToDetailScreen(index: Int)
 }

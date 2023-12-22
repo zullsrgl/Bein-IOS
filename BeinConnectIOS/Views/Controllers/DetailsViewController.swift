@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 class DetailsViewController: UIViewController {
     let movieID: Int?
@@ -70,7 +71,11 @@ class DetailsViewController: UIViewController {
         }
     }
 }
-extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
+extension DetailsViewController: UITableViewDelegate, UITableViewDataSource, WatchButonCellDelegate {
+    func presentPlayerController(_ playerController: AVPlayerViewController) {
+        self.present(playerController, animated: true, completion: nil)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 250        }
@@ -109,7 +114,7 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: WatchButonCollectionViewCell.identifire, for: indexPath) as! WatchButonCollectionViewCell
-            
+            cell.delegate = self
             cell.selectionStyle = .none
             cell.backgroundColor = tableView.backgroundColor
             return cell

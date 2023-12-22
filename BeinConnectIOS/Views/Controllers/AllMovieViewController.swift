@@ -13,7 +13,6 @@ import MapKit
 
 class AllMovieViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var detailsVc: DetailProtocol?
-
     private var trendingMovies : [Title] = []
     var  selectedDataType : Int?
     var collectionView : UICollectionView?
@@ -97,7 +96,6 @@ class AllMovieViewController: UIViewController, UICollectionViewDelegate, UIColl
                  print(error.localizedDescription)
              }
          }
-        
     }
     private func getUpcomingMoviesData() {
         APICaller.shared.getUpcomingMovies { [weak self] result in
@@ -119,12 +117,10 @@ class AllMovieViewController: UIViewController, UICollectionViewDelegate, UIColl
         selectedDataType = index
         if index == 0 {
             titleName.text = "Trend Filmler"
-            //titleName.text =
             getPopulerData()
         }
         else if index == 1 {
             titleName.text = "Trand Diziler"
-            
             getTrendingTvsData()
         }
         else if index == 2 {
@@ -139,14 +135,10 @@ class AllMovieViewController: UIViewController, UICollectionViewDelegate, UIColl
             print("error")
         }
         collectionView?.reloadData()
-        
     }
-
-   
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return trendingMovies.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifire, for: indexPath) as? TitleCollectionViewCell else {
             return UICollectionViewCell()
@@ -154,7 +146,6 @@ class AllMovieViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.configure(with: trendingMovies[indexPath.row])
         return cell
     }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        let movieID =  trendingMovies[indexPath.row].id
         let detailsVc = DetailsViewController(movieID: movieID)

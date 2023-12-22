@@ -28,7 +28,6 @@ class MovieManager {
     func getFavoriteMovies() -> [MovieDetail] {
         if let favoritesStringArray = UserDefaults.standard.array(forKey: "favourites") as? [String] {
             var favoritesList: [MovieDetail] = []
-            
             for jsonString in favoritesStringArray {
                 if let jsonData = jsonString.data(using: .utf8) {
                     do {
