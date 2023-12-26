@@ -6,9 +6,13 @@
 //
 
 import UIKit
+protocol SearchViewProtocol: AnyObject {
+    func displaySearchedMovies(_ movies: [Title])
+}
+class SearchViewController: UIViewController , SearchViewProtocol{
 
-class SearchViewController: UIViewController{
-   
+    private let searchInteractor = SeachInteractor()
+    private var searchPresenter = SearchPresenter()
     var movieList: [Title] = []
     
     let tableview: UITableView = {
@@ -25,6 +29,9 @@ class SearchViewController: UIViewController{
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchInteractor.presenter = searchPresenter
+        searchPresenter.view = self
+        
         tableview.delegate = self
         tableview.dataSource = self
         searchbar.delegate = self
@@ -45,22 +52,17 @@ class SearchViewController: UIViewController{
             make.left.right.equalToSuperview()
         }
     }
+    func displaySearchedMovies(_ movies: [Title]) {
+        movieList = movies
+        tableview.reloadData()
+    }
+    
 }
 extension SearchViewController :  UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { //whenever the enter is clicked
-        APICaller.shared.getMovieName(keyWord: searchBar.text ) {  [weak self] result in
-            switch result {
-            case .success(let movieList):
-                DispatchQueue.main.async {
-                    self?.movieList = movieList
-                    self?.tableview.reloadData()
-                }
-                 print("movie Name : \(movieList)")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+        guard let keyword = searchBar.text else {return}
+        searchInteractor.searchMovies(withKeyWord: keyword)
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movieList.count

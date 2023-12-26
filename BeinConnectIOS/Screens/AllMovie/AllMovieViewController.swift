@@ -9,9 +9,21 @@ import UIKit
 import SnapKit
 import MapKit
 
+protocol AllViewControllerProtocol : AnyObject{
+    func displayTrendingMovies(_ titles: [Title])
+    func displayTrendingTv(_ titles: [Title])
+    func displayUpcomingMovies(_ titles: [Title])
+    func displayPopuler(_ titles: [Title])
+}
 
 
-class AllMovieViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class AllMovieViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AllViewControllerProtocol {
+   
+    
+    
+    private let allMovieInteractor = AllMovieInteractor()
+    private let allMoviePresenter = AllMoviePrsenter()
+    
     var detailsVc: DetailProtocol?
     private var trendingMovies : [Title] = []
     var  selectedDataType : Int?
@@ -19,6 +31,11 @@ class AllMovieViewController: UIViewController, UICollectionViewDelegate, UIColl
     let titleName = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        allMovieInteractor.allMoviePresenter = allMoviePresenter
+        allMoviePresenter.view = self
+        
+        
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.isNavigationBarHidden = false
         let layout = UICollectionViewFlowLayout()
@@ -55,60 +72,49 @@ class AllMovieViewController: UIViewController, UICollectionViewDelegate, UIColl
             make.right.equalToSuperview().offset(-5)
         }
     }
-  
-    private func getPopulerData(){
-        APICaller.shared.getPopuler{ [weak self] result in
-               switch result{
-               case .success(let titles):
-                   DispatchQueue.main.async {
-                       self?.trendingMovies = titles
-                       self?.collectionView?.reloadData()
-                   }
-               case .failure(let error) :
-                   print(error.localizedDescription)
-            }
+    func displayTrendingMovies(_ titles: [Title]) {
+        DispatchQueue.main.async {
+            self.trendingMovies = titles
+            self.collectionView?.reloadData()
+            
         }
+    }
+    
+    func displayTrendingTv(_ titles: [Title]) {
+        DispatchQueue.main.async {
+            self.trendingMovies = titles
+            self.collectionView?.reloadData()
+        }
+    }
+    
+    func displayUpcomingMovies(_ titles: [Title]) {
+        DispatchQueue.main.async {
+            self.trendingMovies = titles
+            self.collectionView?.reloadData()
+            
+        }
+    }
+    
+    func displayPopuler(_ titles: [Title]) {
+        DispatchQueue.main.async {
+            self.trendingMovies = titles
+            self.collectionView?.reloadData()
+            
+        }
+    }
+    private func getPopulerData(){
+        allMovieInteractor.getPopuler()
     }
     
     private func getTrendingsMoviesData(){
-        APICaller.shared.getTrendingMovies { [weak self] result in
-             switch result{
-             case .success(let titles):
-                 DispatchQueue.main.async {
-                     self?.trendingMovies = titles
-                     self?.collectionView?.reloadData()
-                 }
-             case .failure(let error) :
-                 print(error.localizedDescription)
-             }
-         }
+        allMovieInteractor.getTrendingMovies()
     }
     
     private func getTrendingTvsData(){
-        APICaller.shared.getTrendingTvs { [weak self] result in
-             switch result{
-             case .success(let titles):
-                 DispatchQueue.main.async {
-                     self?.trendingMovies = titles
-                     self?.collectionView?.reloadData()
-                 }
-             case .failure(let error) :
-                 print(error.localizedDescription)
-             }
-         }
+        allMovieInteractor.getTrendingTv()
     }
     private func getUpcomingMoviesData() {
-        APICaller.shared.getUpcomingMovies { [weak self] result in
-            switch result{
-            case .success(let titles):
-                DispatchQueue.main.async {
-                    self?.trendingMovies = titles
-                    self?.collectionView?.reloadData()
-                }
-            case .failure(let error) :
-                print(error.localizedDescription)
-            }
-        }
+        allMovieInteractor.getUpComming()
     }
     
     

@@ -15,7 +15,17 @@ enum Sections : Int {
     case UpcomingMovies = 2
     case Popular = 3
 }
-class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
+protocol HomeViewControllerProtocol : AnyObject{
+    func displayTrendingMovies(_ titles: [Title])
+    func displayTrendingTv(_ titles: [Title])
+    func displayUpcomingMovies(_ titles: [Title])
+    func displayPopuler(_ titles: [Title])
+}
+
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource , HomeViewControllerProtocol {
+    private let interactor = HomeInteractor()
+    private let presenter = HomePresenter()
+    
     let sectionTitles: [String] = ["Trend Filmler","Trand Diziler", "Popülerler", "Yakında Gelecekler"]
     let categoryName : [String] = ["Film" , "Dizi" ,"Çocuk", "Spor","Canlı TV"]
     var selectedCategory: String?
@@ -52,10 +62,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //MARK:  viewdidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        interactor.presenter = presenter
+        presenter.viewController = self
         filmFeedTable.register(HeaderUITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderUITableViewHeaderFooterView.identifire)
         filmFeedTable.dataSource = self
         filmFeedTable.delegate = self
-        
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         filmFeedTable.backgroundColor = .black
@@ -65,7 +77,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         view.addSubview(categoryCollectionView)
         getGradientBackGraund()
         navController()
-        apiCaller()
+       apiCaller()
         getDataFromHomeVC()
     }
     override func viewDidLayoutSubviews() {
@@ -98,7 +110,40 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             categoryCollectionView.isHidden = true
             titleLabel.text = category
         }
+    } //MARK: DİSPLAY FUNC
+    func displayTrendingMovies(_ titles: [Title]) {
+        DispatchQueue.main.async {
+            self.setupScrollView(with: titles)
+            if let trendingTvCell = self.filmFeedTable.cellForRow(at: IndexPath(row: 0, section: Sections.TrendingMovies.rawValue)) as? CollectionViewTableViewCell {
+                trendingTvCell.configure(with: titles)
+            }
+            
+        }
     }
+    
+    func displayTrendingTv(_ titles: [Title]) {
+        DispatchQueue.main.async {
+            if let trendingTvCell = self.filmFeedTable.cellForRow(at: IndexPath(row: 0, section: Sections.TrandingTv.rawValue)) as? CollectionViewTableViewCell {
+                trendingTvCell.configure(with: titles)
+            }
+        }
+    }
+    
+    func displayUpcomingMovies(_ titles: [Title]) {
+        DispatchQueue.main.async {
+            if let trendingTvCell = self.filmFeedTable.cellForRow(at: IndexPath(row: 0, section: Sections.UpcomingMovies.rawValue)) as? CollectionViewTableViewCell {
+                trendingTvCell.configure(with: titles)
+            }
+        }
+    }
+    func displayPopuler(_ titles: [Title]) {
+        DispatchQueue.main.async {
+            if let trendingTvCell = self.filmFeedTable.cellForRow(at: IndexPath(row: 0, section: Sections.Popular.rawValue)) as? CollectionViewTableViewCell {
+                trendingTvCell.configure(with: titles)
+            }
+        }
+    }
+    //MARK: Gradient
     func getGradientBackGraund(){
         let colorTop = UIColor(red: 20.0 / 255.0, green: 20.0 / 255.0, blue: 20.0 / 255.0, alpha: 0.90).cgColor
         let colorBottom = UIColor(red: 30.0 / 255.0, green: 30.0 / 255.0, blue: 30.0 / 255.0, alpha: 0.0).cgColor
@@ -137,20 +182,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.navigationItem.titleView = titleLabel
     }
- func apiCaller() {
-     APICaller.shared.getTrendingMovies{ [weak self] result in
-         switch result {
-         case .success(let titles):
-             DispatchQueue.main.async {
-                 self?.setupScrollView(with: titles)
-
-             }
-         case .failure(let error):
-             print("Hata: \(error)")
-
-         }
-     }
- }
+    func apiCaller() {
+        interactor.getTrendingMovies()
+    }
 
     func setupScrollView(with titles: [Title]) {
         for (index, title) in titles.enumerated() {
@@ -173,8 +207,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if let tappedImageView = sender.view as? UIImageView{
             let tappedImageID = tappedImageView.tag
             navigateDetailVc(withID: tappedImageID)
-        
-            print("Image View'a tıklandı: \(tappedImageID)")
+            print("Home ViewController Image View'a tıklandı: \(tappedImageID)")
         }
     }
 }
@@ -219,45 +252,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.delegate = self
         switch indexPath.section{
         case Sections.TrendingMovies.rawValue:
-        APICaller.shared.getPopuler{ result in
-            switch result{
-            case .success(let titles):
-                cell.configure(with: titles)
-            case .failure(let error) :
-                print(error.localizedDescription)
-            }
-        }
+            interactor.getTrendingMovies()
             cell.title = "Trending Movies"
         case Sections.TrandingTv.rawValue:
-            APICaller.shared.getTrendingTvs{ result in
-                switch result{
-                case .success(let titles):
-                    cell.configure(with: titles)
-                case .failure(let error) :
-                    print(error.localizedDescription)
-                }
-            }
+            interactor.getTrendingTv()
             cell.title = "Trending TV"
         case Sections.UpcomingMovies.rawValue :
-            APICaller.shared.getUpcomingMovies{ result in
-                switch result{
-                case .success(let titles):
-                    cell.configure(with: titles)
-                case .failure(let error) :
-                    print(error.localizedDescription)
-                }
-            }
+            interactor.getUpcomingMovies()
             cell.title = "Upcoming Movies"
-
         case Sections.Popular.rawValue:
-            APICaller.shared.getPopuler{ result in
-                switch result{
-                case .success(let titles):
-                    cell.configure(with: titles)
-                case .failure(let error) :
-                    print(error.localizedDescription)
-                }
-            }
+            interactor.getPopuler()
             cell.title = "Popular"
         default:
             return UITableViewCell()
@@ -271,8 +275,5 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 40
-    }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let defaultOffset = view.safeAreaInsets.top
     }
 }

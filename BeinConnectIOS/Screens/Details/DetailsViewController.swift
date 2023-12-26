@@ -8,14 +8,23 @@
 import UIKit
 import AVKit
 
-class DetailsViewController: UIViewController {
-    let movieID: Int?
+protocol DetailViewProtocol: AnyObject {
+    func displayDetailMovies(_ movies: MovieDetail)
+}
+
+class DetailsViewController: UIViewController, DetailViewProtocol{
+    private var detailVCInteractor = DetailInteractor()
+    private var detailVcPresenter = DetailPresenter()
+
     
-    private var movieDetail: MovieDetail?
+    let movieID: Int?
+    var movieDetail: MovieDetail?
     init(movieID: Int) {
         self.movieID = movieID
+        print("movie Id : \(movieID)")
         super.init(nibName: nil, bundle: nil)
     }
+   
     
     required init?(coder: NSCoder) {
         fatalError("Gelen id çalışmadı")
@@ -40,30 +49,26 @@ class DetailsViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(overviewLabel)
         
-        
+        detailVCInteractor.detailPresenter = detailVcPresenter
+        detailVcPresenter.view = self
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(DetailsCollectionViewCell.self, forCellReuseIdentifier: DetailsCollectionViewCell.identifire)
         tableView.register(WatchButonCollectionViewCell.self, forCellReuseIdentifier: WatchButonCollectionViewCell.identifire)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        setConstraints()
-        getMovieDetails()
-    }
-    
-    private func getMovieDetails() {
-        APICaller.shared.getMovieDetails(id: movieID) { [weak self] result in
-            switch result{
-            case .success(let movieDetail):
-                DispatchQueue.main.async {
-                    self?.movieDetail = movieDetail
-                    self?.tableView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
+        setConstraints()  
+        if let movieID = movieID {
+            detailVCInteractor.detailMovie(withId: movieID)
         }
-    }
+     
+    }  
+    func displayDetailMovies(_ movieDetail: MovieDetail) {
+           self.movieDetail = movieDetail
+           DispatchQueue.main.async { [weak self] in
+               self?.tableView.reloadData()
+           }
+       }
     func setConstraints(){
         tableView.snp.makeConstraints { make in
             make.top.equalToSuperview()
