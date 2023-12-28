@@ -9,26 +9,33 @@ import Foundation
 
 class HomeInteractor {
     var presenter: HomePresenterProtocol?
-
+    var homeWorker : HomeWorkerProtocol?
+    init(presenter: HomePresenterProtocol? = nil, homeWorker: HomeWorkerProtocol? = nil) {
+        self.presenter = presenter
+        self.homeWorker = homeWorker ?? HomeWorker()
+    }
+    
     func getTrendingMovies() {
-        APICaller.shared.getTrendingMovies { [weak self] result in
+        homeWorker?.getTrendingMovies{ [weak self] result  in
             switch result {
-            case .success(let titles):
-                self?.presenter?.presentTrendingMovies(titles)
-            case .failure(let error):
-                print("Hata: \(error)")
+            case .success(let movieDetail):
+                self?.presenter?.presentTrendingMovies(movieDetail)
+            case .failure(let error) :
+                print("DetailsInteractor Error: \(error)")
             }
+            
         }
     }
 
     func getTrendingTv() {
-        APICaller.shared.getTrendingTvs { [weak self] result in
+        homeWorker?.getTrendingTV{ [weak self] result  in
             switch result {
-            case .success(let titles):
-                self?.presenter?.presentTrendingTv(titles)
-            case .failure(let error):
-                print("Hata: \(error)")
+            case .success(let movieDetail):
+                self?.presenter?.presentTrendingTv(movieDetail)
+            case .failure(let error) :
+                print("DetailsInteractor Error: \(error)")
             }
+            
         }
     }
 

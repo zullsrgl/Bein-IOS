@@ -11,11 +11,9 @@ protocol DetailPresenterProtocol : AnyObject {
 }
 class DetailPresenter : DetailPresenterProtocol{
     weak var view: DetailViewProtocol?
-    
     init(view: DetailsViewController? = nil) {
         self.view = view
     }
-    
     func presenterDetail(_ movieDetail: MovieDetail) {
         DispatchQueue.main.async { [weak self] in
             self?.view?.displayDetailMovies(movieDetail)

@@ -57,8 +57,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
-    
-
+  
     //MARK:  viewdidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +109,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             categoryCollectionView.isHidden = true
             titleLabel.text = category
         }
-    } //MARK: DİSPLAY FUNC
+    }
+    
+    //MARK: DİSPLAY FUNC
     func displayTrendingMovies(_ titles: [Title]) {
         DispatchQueue.main.async {
             self.setupScrollView(with: titles)

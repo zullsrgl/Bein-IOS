@@ -10,47 +10,56 @@ import Foundation
 
 class AllMovieInteractor {
     var allMoviePresenter : AllMoviePrsenterProtocol?
+    var allMovieWorker : AllMoviesWorkerProtocol?
     
-    func getTrendingMovies() {
-        APICaller.shared.getTrendingMovies { [weak self] result in
+    init(allMoviePresenter: AllMoviePrsenterProtocol? = nil, allMovieWorker: AllMoviesWorkerProtocol? = nil) {
+        self.allMoviePresenter = allMoviePresenter
+        self.allMovieWorker = allMovieWorker ?? AllMovieWorker()
+    }
+    
+    func getTrendingMovies() { 
+        allMovieWorker?.getTrendingMovies { [weak self] result  in
             switch result {
-            case .success(let titles):
-                self?.allMoviePresenter?.presentUpcomingMovies(titles)
-            case .failure(let error):
-                print("Hata: \(error)")
+            case .success(let movieDetail):
+                self?.allMoviePresenter?.presentTrendingMovies(movieDetail)
+            case .failure(let error) :
+                print("DetailsInteractor Error: \(error)")
+                
             }
         }
     }
 
     func getTrendingTv(){
-        APICaller.shared.getTrendingTvs { [weak self] result in
+        allMovieWorker?.getTrendingTV { [weak self] result  in
             switch result {
-            case .success(let titles):
-                self?.allMoviePresenter?.presentTrendingTv(titles)
+            case .success(let movieDetail):
+                self?.allMoviePresenter?.presentTrendingMovies(movieDetail)
             case .failure(let error) :
-                print("All Movies Interactor Error : \(error)")
+                print("DetailsInteractor Error: \(error)")
+                
             }
         }
     }
     func getUpComming(){
-        APICaller.shared.getUpcomingMovies { [weak self] result in
+        allMovieWorker?.getUpcomingMovies{ [weak self] result  in
             switch result {
-            case .success(let titles):
-                self?.allMoviePresenter?.presentUpcomingMovies(titles)
+            case .success(let movieDetail):
+                self?.allMoviePresenter?.presentTrendingMovies(movieDetail)
             case .failure(let error) :
-                print("All Movies Interactor Error : \(error)")
+                print("DetailsInteractor Error: \(error)")
+                
             }
         }
     }
     func getPopuler(){
-        APICaller.shared.getPopuler { [weak self] result in
+        allMovieWorker?.getPopuler{ [weak self] result  in
             switch result {
-            case .success(let titles):
-                self?.allMoviePresenter?.presentPopuler(titles)
+            case .success(let movieDetail):
+                self?.allMoviePresenter?.presentTrendingMovies(movieDetail)
             case .failure(let error) :
-                print("All Movies Interactor Error : \(error)")
+                print("DetailsInteractor Error: \(error)")
+                
             }
         }
     }
-    
 }

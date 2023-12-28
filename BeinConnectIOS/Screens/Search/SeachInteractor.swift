@@ -12,14 +12,21 @@ protocol SearchInteractorProtocol : AnyObject {
 
 class SeachInteractor  : SearchInteractorProtocol{
     var presenter : SearchPresenterProtocol?
+    var searchWorker : SearchWorkerProtocol?
+    
+    
+    init(presenter: SearchPresenterProtocol? = nil, searchWorker: SearchWorkerProtocol? = nil) {
+        self.presenter = presenter
+        self.searchWorker = searchWorker ?? SearchWorker()
+    }
     
     func searchMovies(withKeyWord keyword: String) {
-        APICaller.shared.getMovieName(keyWord: keyword) { [weak self] result in
-            switch result {
-            case .success(let movieList):
-                self?.presenter?.presenterSearchedMovies(movieList)
+        searchWorker?.getMovieName(keyWord: keyword) { [weak self] result in
+            switch result{
+            case .success(let movieName):
+                self?.presenter?.presenterSearchedMovies(movieName)
             case .failure(let error):
-                print("SearchInteractorFail: \(error)")
+                print("Search Interactor Error : \(error)")
             }
         }
     }

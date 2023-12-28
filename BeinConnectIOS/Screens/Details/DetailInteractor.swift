@@ -12,14 +12,22 @@ protocol DetailInteractorProtocol : AnyObject {
 }
 class DetailInteractor : DetailInteractorProtocol {
     var detailPresenter: DetailPresenterProtocol?
+    var worker : DetailsWorkerProtocol?
+    
+    
+    init(detailPresenter: DetailPresenterProtocol? = nil, worker: DetailsWorkerProtocol? = nil) {
+        self.detailPresenter = detailPresenter
+        self.worker = worker ?? DetailsWorker()
+    }
     
     func detailMovie(withId id: Int) {
-        APICaller.shared.getMovieDetails(id: id) { [weak self] result in
+        worker?.getMoviesDetails(withId: id) { [weak self] result in
             switch result {
             case .success(let movieDetail):
                 self?.detailPresenter?.presenterDetail(movieDetail)
-            case .failure(let error):
-                print("DetailInteractor Error: \(error)")
+            case .failure(let error) :
+                print("DetailsInteractor Error: \(error)")
+                
             }
         }
     }

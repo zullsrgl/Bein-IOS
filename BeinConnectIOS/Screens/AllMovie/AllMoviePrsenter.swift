@@ -17,22 +17,35 @@ protocol AllMoviePrsenterProtocol : AnyObject {
 
 class AllMoviePrsenter : AllMoviePrsenterProtocol {
     weak var view : AllViewControllerProtocol?
+    var allMovieWorker : AllMovieWorker?
+    
+    init(view: AllViewControllerProtocol? = nil, allMovieWorker: AllMovieWorker? = nil) {
+        self.view = view
+        self.allMovieWorker = allMovieWorker
+    }
     
     func presentTrendingMovies(_ titles: [Title]) {
-        view?.displayTrendingTv(titles)
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.displayTrendingMovies(titles)
+        }
     }
     
     func presentTrendingTv(_ titles: [Title]) {
-        view?.displayTrendingTv(titles)
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.displayTrendingTv(titles)
+        }
     }
     
     func presentUpcomingMovies(_ titles: [Title]) {
-        view?.displayUpcomingMovies(titles)
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.displayUpcomingMovies(titles)
+        }
+
     }
     
     func presentPopuler(_ titles: [Title]) {
-        view?.displayPopuler(titles)
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.displayPopuler(titles)
+        }
     }
-    
-    
 }
