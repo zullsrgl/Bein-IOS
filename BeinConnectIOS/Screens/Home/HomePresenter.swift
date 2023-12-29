@@ -15,7 +15,7 @@ protocol HomePresenterProtocol{
 
 class HomePresenter: HomePresenterProtocol {
     weak var viewController: HomeViewControllerProtocol?
-    
+
     func presentTrendingMovies(_ titles: [Title]) {
         viewController?.displayTrendingMovies(titles)
     }

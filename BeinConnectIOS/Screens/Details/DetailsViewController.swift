@@ -15,7 +15,6 @@ protocol DetailViewProtocol: AnyObject {
 class DetailsViewController: UIViewController, DetailViewProtocol{
     private var detailVCInteractor = DetailInteractor()
     private var detailVcPresenter = DetailPresenter()
-
     
     let movieID: Int?
     var movieDetail: MovieDetail?
@@ -24,8 +23,6 @@ class DetailsViewController: UIViewController, DetailViewProtocol{
         print("movie Id : \(movieID)")
         super.init(nibName: nil, bundle: nil)
     }
-   
-    
     required init?(coder: NSCoder) {
         fatalError("Gelen id çalışmadı")
     }
@@ -35,7 +32,6 @@ class DetailsViewController: UIViewController, DetailViewProtocol{
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     
     var tableView: UITableView = {
         let tableView = UITableView()

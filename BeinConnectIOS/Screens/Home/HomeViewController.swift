@@ -25,6 +25,7 @@ protocol HomeViewControllerProtocol : AnyObject{
 class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource , HomeViewControllerProtocol {
     private let interactor = HomeInteractor()
     private let presenter = HomePresenter()
+    private let router = HomeRouter.shared
     
     let sectionTitles: [String] = ["Trend Filmler","Trand Diziler", "Popülerler", "Yakında Gelecekler"]
     let categoryName : [String] = ["Film" , "Dizi" ,"Çocuk", "Spor","Canlı TV"]
@@ -64,6 +65,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         interactor.presenter = presenter
         presenter.viewController = self
+        router.navController = navigationController
         filmFeedTable.register(HeaderUITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderUITableViewHeaderFooterView.identifire)
         filmFeedTable.dataSource = self
         filmFeedTable.delegate = self
@@ -215,13 +217,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 //MARK: Extansion Navigate
 extension HomeViewController : HeaderProtocol , DetailProtocol {
     func navigateDetailVc(withID movieID : Int) {
-        let detailsVc = DetailsViewController(movieID: movieID)
-        navigationController?.pushViewController(detailsVc, animated: true)
+        router.navigateDetailVc(withID: movieID)
     }
     func navigateToDetailScreen(index: Int) {
-        let viewController = AllMovieViewController()
-        viewController.didTapSeeAllButton(as: index)
-        navigationController?.pushViewController(viewController, animated: true)
+        router.navigateToDetailScreen(index: index)
     }
 }
 

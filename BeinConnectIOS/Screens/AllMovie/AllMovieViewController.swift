@@ -19,8 +19,7 @@ protocol AllViewControllerProtocol : AnyObject{
 
 class AllMovieViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AllViewControllerProtocol {
    
-    
-    
+    private let allMovieRouter = AllMovieRouter.shared
     private let allMovieInteractor = AllMovieInteractor()
     private let allMoviePresenter = AllMoviePrsenter()
     
@@ -64,6 +63,7 @@ class AllMovieViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        allMovieRouter.navController = navigationController!
         
         collectionView?.snp.makeConstraints{ make in
             make.left.equalToSuperview().offset(5)
@@ -152,9 +152,9 @@ class AllMovieViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.configure(with: trendingMovies[indexPath.row])
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        let movieID =  trendingMovies[indexPath.row].id
-        let detailsVc = DetailsViewController(movieID: movieID)
-        navigationController?.pushViewController(detailsVc, animated: true)
+        allMovieRouter.navigateToDetails(movieID: movieID)
     }
 }

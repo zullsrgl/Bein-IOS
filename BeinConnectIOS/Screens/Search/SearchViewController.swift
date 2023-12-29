@@ -11,6 +11,7 @@ protocol SearchViewProtocol: AnyObject {
 }
 class SearchViewController: UIViewController , SearchViewProtocol{
 
+    private let searchRouter = SearchRouter.shared
     private let searchInteractor = SeachInteractor()
     private var searchPresenter = SearchPresenter()
     var movieList: [Title] = []
@@ -31,6 +32,7 @@ class SearchViewController: UIViewController , SearchViewProtocol{
         super.viewDidLoad()
         searchInteractor.presenter = searchPresenter
         searchPresenter.view = self
+        searchRouter.navController = navigationController!
         
         tableview.delegate = self
         tableview.dataSource = self
@@ -88,11 +90,9 @@ extension SearchViewController :  UITableViewDelegate, UITableViewDataSource, UI
         cell.backgroundColor = .black
         return cell
     }
-  
 }
 extension SearchViewController : DetailProtocol {
     func navigateDetailVc(withID movieID: Int) {
-        let vc = DetailsViewController(movieID: movieID)
-        navigationController?.pushViewController(vc, animated: true)
+        searchRouter.navigateDetailVc(withID: movieID)
     }
 }
